@@ -2,6 +2,9 @@ package net.purdue.voiceme;
 
 
 import android.app.NotificationManager;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
 
 /**
  * 
@@ -9,7 +12,7 @@ import android.app.NotificationManager;
  * Manage multiple notifications, and update notifications by using this utility class
  */
 
-public class NotificationMgr {
+public class NotificationMgr extends Service{
 
 	NotificationManager mNotifyManager;
 	public final int NEW_ARTICLE_NOTIFICATION = 1; 
@@ -58,6 +61,12 @@ public class NotificationMgr {
 	
 	public void showNotify(){
 		
+	}
+
+	@Override
+	public IBinder onBind(Intent arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
