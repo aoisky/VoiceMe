@@ -1,4 +1,4 @@
-package net.purdue.voiceme;
+package me.imvoice.app;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -16,7 +16,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
-
 import java.util.List;
 
 /**

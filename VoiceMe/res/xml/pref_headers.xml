@@ -3,13 +3,13 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="net.purdue.voiceme.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="me.imvoice.app.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
     <header
-        android:fragment="net.purdue.voiceme.SettingsActivity$NotificationPreferenceFragment"
+        android:fragment="me.imvoice.app.SettingsActivity$NotificationPreferenceFragment"
         android:title="@string/pref_header_notifications" />
     <header
-        android:fragment="net.purdue.voiceme.SettingsActivity$DataSyncPreferenceFragment"
+        android:fragment="me.imvoice.app.SettingsActivity$DataSyncPreferenceFragment"
         android:title="@string/pref_header_data_sync" />
 
 </preference-headers>

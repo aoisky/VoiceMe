@@ -1,4 +1,4 @@
-package net.purdue.voiceme;
+package me.imvoice.app;
 
 public class APIHandler {
 
