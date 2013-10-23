@@ -19,7 +19,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_main);
 		loginButton = (Button) findViewById(R.id.button1);
 		loginButton.setOnClickListener(this);
-		
+		//Usage of notificationMgr
+		NotificationMgr notifyMgr = new NotificationMgr(this);
+		notifyMsg(notifyMgr);
+
 	}
 
 	@Override
@@ -36,6 +39,17 @@ public class MainActivity extends Activity implements OnClickListener{
 			Intent login = new Intent(MainActivity.this,LoginActivity.class);
 			startActivity(login);
 		}
+	}
+	
+	//A sample to use notificationMgr
+	private void notifyMsg(NotificationMgr notifyMgr){
+
+		Bundle args = new Bundle();
+		args.putString("title", "Test");
+		args.putString("content", "Test content");
+		args.putInt("type", NotificationMgr.NEW_ARTICLE_NOTIFICATION);
+		int notifyNum = notifyMgr.createNotify(args);
+		notifyMgr.showNotify(notifyNum);
 	}
 
 }
