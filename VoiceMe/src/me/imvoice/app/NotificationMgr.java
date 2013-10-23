@@ -1,10 +1,12 @@
 package me.imvoice.app;
 
 
+import java.util.ArrayList;
+
+import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
+import android.content.Context;
+import android.os.Bundle;
 
 /**
  * 
@@ -12,21 +14,26 @@ import android.os.IBinder;
  * Manage multiple notifications, and update notifications by using this utility class
  */
 
-public class NotificationMgr extends Service{
-
+public class NotificationMgr{
+	
+	
+	Context context;
 	NotificationManager mNotifyManager;
 	public final int NEW_ARTICLE_NOTIFICATION = 1; 
 	public final int NEW_VERSION_NOTIFICATION = 2;
-	
+	private ArrayList<Notification.Builder> notifys;
+	private int notifyNum;
 	
 	/**
 	 * Obtain the notifyManager from context and create NotificationMgr object
 	 * @param notifyManager
 	 */
-	public NotificationMgr(NotificationManager notifyManager){
+	public NotificationMgr(Context context){
+		this.context = context;
 		//Get notify Manager from context
-		mNotifyManager = notifyManager;
-		
+		mNotifyManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);;
+		notifys = new ArrayList<Notification.Builder>();
+		notifyNum = 0;
 	}
 	
 	/**
@@ -36,9 +43,37 @@ public class NotificationMgr extends Service{
 	 * @param content
 	 * @param extra
 	 */
-	public int createNotify(int notifyType, String title, String content, int extra){
+	public int createNotify(Bundle args){
+		String title;
+		String content;
+		int notifyType;
+		Notification.Builder mBuilder;
 		
-		return 0;
+		if(args != null){
+			title = args.getString("title");
+			content = args.getString("content");
+			notifyType = args.getInt("type");
+			
+			if(notifyType == this.NEW_ARTICLE_NOTIFICATION){
+				mBuilder = new Notification.Builder(context)
+				.setSmallIcon(R.drawable.ic_launcher)
+				.setContentTitle(title)
+				.setContentText(content);
+				
+				notifys.add(mBuilder);
+				this.notifyNum++;
+			}
+			
+			if(notifyType == this.NEW_VERSION_NOTIFICATION){
+				mBuilder = new Notification.Builder(context)
+				.setSmallIcon(R.drawable.ic_launcher)
+				.setContentTitle("New Version Found: " + title)
+				.setContentText(content);
+				notifys.add(mBuilder);
+				this.notifyNum++;
+			}
+		}
+		return notifyNum - 1;
 	}
 	
 	/**
@@ -47,26 +82,33 @@ public class NotificationMgr extends Service{
 	 * @param content
 	 * @param extra
 	 */
-	public void updateNotify(int notifyNum, String title, String content, int extra){
+	public void updateNotify(Bundle args){
 		
 	}
 	
 	/**
-	 * Remove a notification
+	 * Remove a notification from the notifys arrayList
 	 * @param notifyNum
 	 */
 	public void removeNotify(int notifyNum){
 		
 	}
 	
-	public void showNotify(){
+	/**
+	 * Cancel a notification
+	 * @param notifyNum
+	 */
+	public void cancelNotify(int notifyNum){
 		
 	}
-
-	@Override
-	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	/**
+	 * Show a notification from notifys arrayList
+	 * @param notifyNum
+	 */
+	public void showNotify(int notifyNum){
+		mNotifyManager.notify(notifyNum, notifys.get(notifyNum).getNotification());
 	}
+
 	
 }
