@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -135,7 +136,12 @@ public class LoginActivity extends Activity {
 			focusView = mEmailView;
 			cancel = true;
 		}
-
+		//Check network availability
+		if(!APIHandler.isNetworkAvaliable(this)){
+			Toast.makeText(this, "No network connection", Toast.LENGTH_SHORT).show();
+			cancel = true;
+		}
+		
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
 			// form field with an error.
@@ -146,6 +152,7 @@ public class LoginActivity extends Activity {
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
+			
 			mAuthTask.execute((Void) null);
 		}
 	}
@@ -202,6 +209,9 @@ public class LoginActivity extends Activity {
 
 			try {
 				// Simulate network access.
+				//Use API to auth login
+				APIHandler.authLogin(mEmail, mPassword);
+				
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				return false;
