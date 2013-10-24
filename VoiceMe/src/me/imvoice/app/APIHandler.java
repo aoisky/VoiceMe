@@ -27,11 +27,10 @@ public class APIHandler {
 
 	private static final String logTag = "APIHandler";
 	private static final String authURL = "http://puuca.org/app_conn/auth.php";
-	private ConnectivityManager connectMgr;
-	NetworkInfo networkInfo;
+
 	
-	public APIHandler(Context context){
-		this.connectMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	private APIHandler(){
+		
 	}
 	
 	/**
@@ -40,7 +39,7 @@ public class APIHandler {
 	 * @param password
 	 * @return UserInfo object
 	 */
-	public UserInfo authLogin(String username, String password){
+	public static UserInfo authLogin(String username, String password){
 		JSONObject obj = new JSONObject();
 		
 		obj.put("username", username);
@@ -58,6 +57,7 @@ public class APIHandler {
 		}
 		*/
 		try {
+			Log.d(logTag, "Start login connection");
 			url = new URL(authURL);
 		
 			HttpURLConnection loginConnect = (HttpURLConnection)url.openConnection();
@@ -92,23 +92,25 @@ public class APIHandler {
 	
 	
 	/**
+	 * Utility function
 	 * Check the network availability of this device
 	 * @return network availability
 	 */
-	public boolean isNetworkAvaliable(){
-		NetworkInfo networkInfo = connectMgr.getActiveNetworkInfo();
+	public static boolean isNetworkAvaliable(Context context){
+		ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 		if (networkInfo != null && networkInfo.isConnected()) {
 			return true;
 		}
 		return false;
 	}
 	
-	public int createNewArticle(UserInfo user, Bundle articleInfo){
+	public static int createNewArticle(UserInfo user, Bundle articleInfo){
 		
 		return 0;
 	}
 	
-	public int createNewComment(UserInfo user, Bundle commentInfo){
+	public static int createNewComment(UserInfo user, Bundle commentInfo){
 		
 		
 		return 0;
