@@ -50,11 +50,13 @@ public class APIHandler {
 		URL url;
 		
 		//If the device is not connected to the Internet
+		/*
+		 * Check the network Availability outside the function
 		if(!isNetworkAvaliable()){
-			Log.d(logTag, "No network Avaliable");
+			Log.d(logTag, "No network Available");
 			return null;
 		}
-		
+		*/
 		try {
 			url = new URL(authURL);
 		
