@@ -40,12 +40,15 @@ public class APIHandler {
 	 * @return UserInfo object
 	 */
 	public static UserInfo authLogin(String username, String password){
+		
 		JSONObject obj = new JSONObject();
 		
-		obj.put("username", username);
 		obj.put("password", password);
+		obj.put("username", username);
+		
 		
 		String userAuthInfo = obj.toJSONString();
+		Log.d(logTag,"JSON Auth Login Info: " + userAuthInfo);
 		URL url;
 		
 		//If the device is not connected to the Internet
@@ -77,12 +80,13 @@ public class APIHandler {
 	        
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(userData));
 	        String userStr = reader.readLine();
+	        reader.close();
 	        
 	        Log.d(logTag,"User Info:" + userStr); //Log info for user
 	        
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			Log.d("Debug", "Login Connection Exception");
+			Log.d(logTag, "Login Connection Exception");
 			e.printStackTrace();
 		}catch (Exception e){
 			e.printStackTrace();
