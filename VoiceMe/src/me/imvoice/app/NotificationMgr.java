@@ -35,7 +35,7 @@ public class NotificationMgr{
 	public NotificationMgr(Context context){
 		this.context = context;
 		//Get notify Manager from context
-		mNotifyManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);;
+		mNotifyManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		notifys = new ArrayList<NotificationCompat.Builder>();
 		notifyNum = 0;
 	}
