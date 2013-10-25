@@ -11,5 +11,6 @@
     <string name="browsing">Browsing</string>
     <string name="exit">Exit</string>
     <string name="title_activity_siderbar_tester">SiderbarTester</string>
+    <string name="title_activity_tab_tester">TabTester</string>
 
 </resources>

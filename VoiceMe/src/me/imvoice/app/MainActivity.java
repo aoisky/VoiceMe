@@ -1,6 +1,7 @@
 package me.imvoice.app;
 
 import me.imvoice.example.classes.SiderbarTester;
+import me.imvoice.example.classes.TabTester;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -25,6 +26,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		//Test use.
 		Button testButton = (Button)findViewById(R.id.sidebar_test);
 		testButton.setOnClickListener(this);
+		Button tabsButton = (Button)findViewById(R.id.tabs_test);
+		tabsButton.setOnClickListener(this);
 		
 		//Usage of notificationMgr
 		NotificationMgr notifyMgr = new NotificationMgr(this);
@@ -51,6 +54,10 @@ public class MainActivity extends Activity implements OnClickListener{
 			case R.id.sidebar_test:
 				Intent sidebarTest = new Intent(this, SiderbarTester.class);
 				startActivity(sidebarTest);
+				break;
+			case R.id.tabs_test:
+				Intent tabsTest = new Intent(this, TabTester.class);
+				startActivity(tabsTest);
 				break;
 			case R.id.exit:
 				finish();

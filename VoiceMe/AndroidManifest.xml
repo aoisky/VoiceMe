@@ -38,6 +38,10 @@
             android:name="me.imvoice.example.classes.SiderbarTester"
             android:label="@string/title_activity_siderbar_tester" >
         </activity>
+        <activity
+            android:name="me.imvoice.example.classes.TabTester"
+            android:label="@string/title_activity_tab_tester" >
+        </activity>
     </application>
 
 </manifest>
