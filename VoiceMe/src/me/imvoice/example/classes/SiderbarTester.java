@@ -1,5 +1,8 @@
 package me.imvoice.example.classes;
-
+/**
+ * Example used for sidebar (similar to the one on iPhone).
+ * @author deenliu
+ */
 import java.util.Date;
 
 import me.imvoice.app.R;
