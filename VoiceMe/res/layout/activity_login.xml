@@ -41,7 +41,9 @@
         <LinearLayout
             style="@style/LoginFormContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+
+            android:layout_height="wrap_content"
+
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -60,8 +62,10 @@
 
             <EditText
                 android:id="@+id/email"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_gravity="center"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
@@ -69,8 +73,10 @@
 
             <EditText
                 android:id="@+id/password"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:hint="@string/prompt_password"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
@@ -79,10 +85,10 @@
                 android:maxLines="1"
                 android:singleLine="true" />
 
-		 <RelativeLayout
-		     android:layout_width="wrap_content"
-		     android:layout_height="wrap_content" >
-		 </RelativeLayout>
+
+
+
+		
 
 		 <LinearLayout
 		     android:layout_width="match_parent"
@@ -90,7 +96,7 @@
 
 		     <Button
 		         android:id="@+id/sign_in_button"
-		         android:layout_width="wrap_content"
+		         android:layout_width="0dp"
 		         android:layout_height="wrap_content"
 		         android:layout_marginTop="16dp"
 		         android:layout_weight="1.92"
@@ -114,19 +120,7 @@
 		     android:layout_height="wrap_content"
 		     android:orientation="vertical" >
 
-		     <Button
-		         android:id="@+id/sign_up_buttom"
-		         android:layout_width="match_parent"
-		         android:layout_height="wrap_content"
-		         android:text="Sign Up" />
-
 		 </LinearLayout>
-
-		 <Button
-		     android:id="@+id/login_back"
-		     android:layout_width="283dp"
-		     android:layout_height="wrap_content"
-		     android:text="Back" />
 
         </LinearLayout>
     </ScrollView>

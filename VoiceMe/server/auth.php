@@ -153,8 +153,64 @@
         
         
         $success='NO';
-        $user_data;
         
+        
+        $stmt = $db->prepare('SELECT `user_email`,`user_login` FROM `user` WHERE `user_login` = ? OR `user_email` = ?');
+        $stmt->bind_param('ss', $body['user_searchVal'],$body['user_searchVal']);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt -> bind_result($user_email,$user_login);
+        $stmt->fetch();
+        if($user_email){
+        	$mail = new PHPMailer;
+
+			$mail->isSMTP();                                      // Set mailer to use SMTP
+			$mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup server
+			$mail->SMTPAuth = true;                               // Enable SMTP authentication
+			$mail->Username = 'jswan';                            // SMTP username
+			$mail->Password = 'secret';                           // SMTP password
+			$mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+
+			$mail->From = 'no-reply@imvoice.me';
+			$mail->FromName = 'VoiceMe';
+			$mail->addAddress('josh@example.net', 'Josh Adams');  // Add a recipient
+			//$mail->addAddress('ellen@example.com');               // Name is optional
+			$mail->addReplyTo('support@imvoice.me', 'Support');
+			//$mail->addCC('cc@example.com');
+			//$mail->addBCC('bcc@example.com');
+
+			$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+			//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+			//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+			$mail->isHTML(true);                                  // Set email format to HTML
+			
+			$lifeTime = 24 * 3600;
+            $sessionName = session_name();
+            $sessionID = $_GET[$sessionName];
+            session_id($sessionID); 
+            session_set_cookie_params($lifeTime);
+            session_start();
+			
+			$message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";
+            $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
+            $message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
+            $message .= __('To reset your password, visit the following address within 24 hours after receiving this email:') . "\r\n\r\n";
+            $message .= '<' . dirname(__FILE__) . "/login.php?action=rp&key=".session_id()."&login=" . $user_login . ">\r\n";
+            
+			$mail->Subject = 'Reset password request';
+			$mail->Body    = $message;
+			$mail->AltBody = $message;
+
+			if(!$mail->send()) {
+			   $result =  'Message could not be sent.';
+			   $result .= 'Mailer Error: ' . $mail->ErrorInfo;
+			}
+
+			$result = 'Message has been sent';
+        }
+        else{
+        	$result = "No such user";
+        }
         /**
         if(strpos( $body['user_login'], '@' )){
             $user_data = get_user_by( 'email', trim( $body['user_login'] ) );
@@ -208,7 +264,7 @@
              // The blogname option is escaped with esc_html on the way into the database in sanitize_option
              // we want to reverse this for the plain text arena of emails.
              $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-             */
+             
             $title = sprintf( '[%s] Password Reset', "VoiceMe" );
             
             $title = apply_filters('retrieve_password_title', $title);
