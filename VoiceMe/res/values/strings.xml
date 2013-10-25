@@ -8,5 +8,8 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
+    <string name="browsing">Browsing</string>
+    <string name="exit">Exit</string>
+    <string name="title_activity_siderbar_tester">SiderbarTester</string>
 
 </resources>

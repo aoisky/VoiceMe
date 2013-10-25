@@ -20,9 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Login" />
-
-  
+            android:text="@string/login" />
 
         <Button
             android:id="@+id/exit"
@@ -30,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="Exit" />
+            android:text="@string/exit" />
 
         <Button
             android:id="@+id/browsing"
@@ -38,11 +36,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="Browsing" />
+            android:text="@string/browsing" />
+        
+        <Button 
+            android:id="@+id/sidebar_test"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Sidebar"
+            />
 
   	</RelativeLayout>
 
     <ImageView
+        android:id="@+id/main_image"
         android:layout_width="302dp"
         android:layout_height="462dp"
         android:layout_marginLeft="0dip"

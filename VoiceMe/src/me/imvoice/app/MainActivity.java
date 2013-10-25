@@ -11,14 +11,19 @@ import android.widget.Button;
 
 public class MainActivity extends Activity implements OnClickListener{
 
-	Button loginButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.activity_main);
-		loginButton = (Button) findViewById(R.id.login);
+		Button loginButton = (Button) findViewById(R.id.login);
 		loginButton.setOnClickListener(this);
+		Button exitButton = (Button)findViewById(R.id.exit);
+		exitButton.setOnClickListener(this);
+		
+		//Test use.
+		Button testButton = (Button)findViewById(R.id.sidebar_test);
+		testButton.setOnClickListener(this);
+		
 		//Usage of notificationMgr
 		NotificationMgr notifyMgr = new NotificationMgr(this);
 		notifyMsg(notifyMgr);
@@ -35,9 +40,18 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.getId() == R.id.login){
-			Intent login = new Intent(MainActivity.this,LoginActivity.class);
-			startActivity(login);
+		int buttonId = arg0.getId();
+		switch(buttonId) {
+			case R.id.login:
+				Intent login = new Intent(MainActivity.this,LoginActivity.class);
+				startActivity(login);
+				break;
+			case R.id.sidebar_test:
+				Intent sidebarTest = new Intent(this, SiderbarTester.class);
+				startActivity(sidebarTest);
+				break;
+			case R.id.exit:
+				finish();
 		}
 	}
 	

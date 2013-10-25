@@ -34,6 +34,10 @@
             android:name="me.imvoice.app.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name="me.imvoice.app.SiderbarTester"
+            android:label="@string/title_activity_siderbar_tester" >
+        </activity>
     </application>
 
 </manifest>
