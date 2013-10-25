@@ -1,5 +1,7 @@
 package me.imvoice.app;
 
+import me.imvoice.example.classes.SiderbarTester;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
