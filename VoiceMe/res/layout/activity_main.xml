@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <RelativeLayout
+  	<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/button1"
             android:text="Login" />
 
   
@@ -31,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/linearLayout2"
             android:text="Exit" />
 
         <Button
@@ -42,7 +40,7 @@
             android:layout_centerHorizontal="true"
             android:text="Browsing" />
 
-    </RelativeLayout>
+  	</RelativeLayout>
 
     <ImageView
         android:layout_width="302dp"
@@ -51,8 +49,5 @@
         android:layout_marginTop="0dip"
         android:background="@drawable/loading" />
 
-    
-	
-	
 
 </LinearLayout>

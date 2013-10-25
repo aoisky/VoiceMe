@@ -17,7 +17,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_main);
-		loginButton = (Button) findViewById(R.id.button1);
+		loginButton = (Button) findViewById(R.id.login);
 		loginButton.setOnClickListener(this);
 		//Usage of notificationMgr
 		NotificationMgr notifyMgr = new NotificationMgr(this);
@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.getId() == R.id.button1){
+		if(arg0.getId() == R.id.login){
 			Intent login = new Intent(MainActivity.this,LoginActivity.class);
 			startActivity(login);
 		}
