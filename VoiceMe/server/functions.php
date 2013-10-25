@@ -23,7 +23,13 @@
     
     if($db->connect_errno > 0){
         die('Unable to connect to database [' . $db->connect_error . ']');
-    }    
+    }   
+     
+    /**
+    	Incoming arguments:	$body['uid'], $body['post_content']
+    	Return value(key:variable):		result:$success
+    */
+    
     
     if ($_SERVER['HTTP_METHOD'] === 'post_content'){
     

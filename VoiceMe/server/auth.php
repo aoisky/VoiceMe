@@ -28,13 +28,17 @@
         $body == $_POST;
     }
     
-    
+    /**
+    	Incoming arguments:	$body['user_username'], $body['user_password']
+    	Return value(key:variable):		result:$success, uid:$uid, user_login:$user_login,
+    									avatar_url:$avatar_url, user_email:$user_email
+    */
     if ($_SERVER['HTTP_METHOD'] === 'checkLogin'){
         
         
         
         $stmt = $db->prepare('SELECT `user_login`,`uid`,`user_email`,`user_pass` FROM `user` WHERE `user_login` = ?');
-        $stmt->bind_param('s', $body['username']);
+        $stmt->bind_param('s', $body['user_username']);
         
         $stmt->execute();
         //$stmt->store_result();
@@ -47,7 +51,7 @@
         $success='No such user';
 
         while($stmt -> fetch()){
-            if ($hasher->CheckPassword($body['password'], $user_pass)) { //$hash is the hash retrieved from the DB
+            if ($hasher->CheckPassword($body['user_password'], $user_pass)) { //$hash is the hash retrieved from the DB
                 $success = 'Authentication succeeded';
                 break;
             } else {
@@ -63,11 +67,11 @@
             $stmt1->fetch();
             $stmt1 -> close();
             if(!$avatar_url){
-                $avatar=get_avatar( $body['username'], 96 );
+                $avatar=get_avatar( $body['user_username'], 96 );
                 preg_match("/src='(.*?)'/i", $avatar, $avatar_url1);
                 $avatar_url=$avatar_url1[1];
             }
-            $results[] = array('auth'=>$success,'avatar_url'=>$avatar_url,'user_email'=>$user_email);
+            $results[] = array('auth'=>$success,'user_login'=>$user_login, 'uid'=>$uid, 'avatar_url'=>$avatar_url,'user_email'=>$user_email);
         }
         else {
         	$results[] = array('auth'=>$success);
@@ -77,7 +81,16 @@
 
         echo json_encode($results);
     }
+    /**
+    	Incoming arguments:	$body['user_username'], $body['user_email'], $body['user_password'],
+    						 $body['user_firstname'], $body['user_lastname'], $body['user_mobile'],
+            				$body['user_age'], $body['user_des'],$body['user_gender']
+    	Return value(key:variable):		result:$success
+    */
     else if($_SERVER['HTTP_METHOD'] === 'registerUser'){
+    
+    	$success='Failed';
+    
         $stmt = $db->prepare('SELECT "OK" FROM `user` WHERE `user_login` = ? ');
         $stmt->bind_param('s', $body['user_username']);
         $stmt->execute();
@@ -90,25 +103,27 @@
         $stmt->store_result();
         $stmt -> bind_result($email_exist);
         $stmt->fetch();
-        $result='NO';
-        file_put_contents("test.txt",$body['user_username'].$body['user_email']);
+        
+        //file_put_contents("test.txt",$body['user_username'].$body['user_email']);
         if($user_exist==='OK'){
-        	$result='User exists';
+        	$success='User exists';
         	if($email_exist==='OK'){
-        		$result='User and Email exist';
+        		$success='User and Email exist';
         	}
         }
         else if($email_exist==='OK'){
-            $result='Email exists';
+            $success='Email exists';
         }
         else{
             // Base-2 logarithm of the iteration count used for password stretching
             $hash_cost_log2 = 8;
             // Do we require the hashes to be portable to older systems (less secure)?
-            $hash_portable = TRUE;
+            $hash_portable = FALSE;
             $hasher = new PasswordHash($hash_cost_log2, $hash_portable);
             $password = $hasher->HashPassword($body['user_password']);
-            $stmt = $db->prepare('INSERT INTO  `user` (`uid` ,`user_login` ,`user_pass`,`user_email`,`user_nickname`, `user_avatar`) VALUES (NULL ,  ?,  ?,  ?,  ?, NULL) ');
+            $stmt = $db->prepare('INSERT INTO  `user` (`uid` ,`user_login` ,`user_pass`,
+            									`user_email`,`user_nickname`, `user_avatar`) 
+            									VALUES (NULL ,  ?,  ?,  ?,  ?, NULL) ');
             $stmt->bind_param('ssss', $body['user_username'],$password,$body['user_email'],$body['user_username']);
             if($stmt->execute()){
             	$stmt = $db->prepare('SELECT `uid` FROM `user` WHERE `user_email` = ? ');
@@ -128,31 +143,34 @@
                 	$stmt = $db->prepare('INSERT INTO  `user_avatar` (`uid` ,`avatar_url`) VALUES ( ?, NULL) ');
             		$stmt->bind_param('d', $uid);
             		if($stmt->execute()){
-                		$result='OK';
+                		$success='OK';
                 	}
                 	else{
-                		$result='Failed';
+                		$success='Failed';
                 	}
                 }	
                 else{
-                	$result='Failed';
+                	$success='Failed';
                 }	
             }
             else{
-            	$result='Failed';
+            	$success='Failed';
             }
         }
         
         $stmt -> close();
         $db->close();
-        $results[] = array('result'=>$result);
+        $results[] = array('result'=>$success);
         echo json_encode($results);
         
     }
+    /**
+    	Incoming arguments:	$body['user_searchVal']
+    	Return value(key:variable):		result:$success
+    */
     else if($_SERVER['HTTP_METHOD']==='resetPasswd'){
         
-        
-        $success='NO';
+        $success='Failed';
         
         
         $stmt = $db->prepare('SELECT `user_email`,`user_login` FROM `user` WHERE `user_login` = ? OR `user_email` = ?');
@@ -194,7 +212,8 @@
 			$message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";
             $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
             $message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
-            $message .= __('To reset your password, visit the following address within 24 hours after receiving this email:') . "\r\n\r\n";
+            $message .= __('To reset your password, visit the following address within 24 
+            										hours after receiving this email:') . "\r\n\r\n";
             $message .= '<' . dirname(__FILE__) . "/login.php?action=rp&key=".session_id()."&login=" . $user_login . ">\r\n";
             
 			$mail->Subject = 'Reset password request';
@@ -202,14 +221,14 @@
 			$mail->AltBody = $message;
 
 			if(!$mail->send()) {
-			   $result =  'Message could not be sent.';
-			   $result .= 'Mailer Error: ' . $mail->ErrorInfo;
+			   $success =  'Message could not be sent.';
+			   $success .= 'Mailer Error: ' . $mail->ErrorInfo;
 			}
 
-			$result = 'Message has been sent';
+			$success = 'Message has been sent';
         }
         else{
-        	$result = "No such user";
+        	$success = "No such user";
         }
         $results[] = array('result'=>$success);
         echo json_encode($results);
