@@ -42,6 +42,10 @@
             android:name="me.imvoice.example.classes.TabTester"
             android:label="@string/title_activity_tab_tester" >
         </activity>
+        <activity
+            android:name="me.imvoice.app.MainNotLoginActivity"
+            android:label="@string/title_activity_main_not_login" >
+        </activity>
     </application>
 
 </manifest>

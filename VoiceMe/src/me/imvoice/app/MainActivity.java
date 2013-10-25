@@ -56,7 +56,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				startActivity(sidebarTest);
 				break;
 			case R.id.tabs_test:
-				Intent tabsTest = new Intent(this, TabTester.class);
+				Intent tabsTest = new Intent(this, MainNotLoginActivity.class);
 				startActivity(tabsTest);
 				break;
 			case R.id.exit:

@@ -12,5 +12,10 @@
     <string name="exit">Exit</string>
     <string name="title_activity_siderbar_tester">SiderbarTester</string>
     <string name="title_activity_tab_tester">TabTester</string>
+    <string name="title_activity_default">DefaultActivity</string>
+    <string name="title_activity_main_not_login">MainNotLoginActivity</string>
+    
+    <string name="menu_login">Login</string>
+    <string name="menu_signup">Sign Up</string>
 
 </resources>
