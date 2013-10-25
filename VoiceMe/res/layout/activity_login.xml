@@ -1,5 +1,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".LoginActivity" >
 
     <!-- Login progress -->
@@ -38,7 +40,23 @@
 
         <LinearLayout
             style="@style/LoginFormContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/voice" />
+
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/email"
@@ -61,15 +79,55 @@
                 android:maxLines="1"
                 android:singleLine="true" />
 
-            <Button
-                android:id="@+id/sign_in_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="16dp"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:text="@string/action_sign_in_register" />
+		 <RelativeLayout
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content" >
+		 </RelativeLayout>
+
+		 <LinearLayout
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content" >
+
+		     <Button
+		         android:id="@+id/sign_in_button"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:layout_marginTop="16dp"
+		         android:layout_weight="1.92"
+		         android:paddingLeft="32dp"
+		         android:paddingRight="32dp"
+		         android:text="@string/action_sign_in_register" />
+
+		     <Button
+		         android:id="@+id/forget_pwd"
+		         android:layout_width="142dp"
+		         android:layout_height="wrap_content"
+		         android:layout_marginTop="16dp"
+		         android:paddingLeft="32dp"
+		         android:paddingRight="32dp"
+		         android:text="Forget" />
+
+		 </LinearLayout>
+
+		 <LinearLayout
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content"
+		     android:orientation="vertical" >
+
+		     <Button
+		         android:id="@+id/sign_up_buttom"
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content"
+		         android:text="Sign Up" />
+
+		 </LinearLayout>
+
+		 <Button
+		     android:id="@+id/login_back"
+		     android:layout_width="283dp"
+		     android:layout_height="wrap_content"
+		     android:text="Back" />
+
         </LinearLayout>
     </ScrollView>
 
