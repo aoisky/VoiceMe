@@ -1,5 +1,8 @@
 package me.imvoice.example.classes;
-
+/**
+ * Example used for tab button (using actionbar).
+ * @author deenliu
+ */
 import me.imvoice.app.R;
 import android.os.Bundle;
 import android.app.ActionBar;

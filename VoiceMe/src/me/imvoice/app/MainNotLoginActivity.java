@@ -1,5 +1,8 @@
 package me.imvoice.app;
-
+/**
+ * The default page used for uses that has not logged in. 
+ * @author deenliu
+ */
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.ActionBar.TabListener;

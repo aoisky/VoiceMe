@@ -1,5 +1,8 @@
 package me.imvoice.app;
-
+/**
+ * Launcher activity, used for UI debug now.
+ * @author yudong, deenliu
+ */
 import me.imvoice.example.classes.SiderbarTester;
 import me.imvoice.example.classes.TabTester;
 
