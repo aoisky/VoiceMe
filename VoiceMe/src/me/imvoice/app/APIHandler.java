@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
 
 /**
  * Handle network connection and API transfer
@@ -51,14 +52,6 @@ public class APIHandler {
 		Log.d(logTag,"JSON Auth Login Info: " + userAuthInfo);
 		URL url;
 		
-		//If the device is not connected to the Internet
-		/*
-		 * Check the network Availability outside the function
-		if(!isNetworkAvaliable()){
-			Log.d(logTag, "No network Available");
-			return null;
-		}
-		*/
 		try {
 			Log.d(logTag, "Start login connection");
 			url = new URL(authURL);
@@ -66,6 +59,7 @@ public class APIHandler {
 			HttpURLConnection loginConnect = (HttpURLConnection)url.openConnection();
 	        loginConnect.setReadTimeout(10000 /* milliseconds */);
 	        loginConnect.setConnectTimeout(10000 /* milliseconds */);
+	        loginConnect.setRequestProperty("METHOD", "checkLogin");
 	        loginConnect.setRequestMethod("POST");
 	        loginConnect.setDoInput(true);
 	        loginConnect.setDoOutput(true);
@@ -84,6 +78,22 @@ public class APIHandler {
 	        
 	        Log.d(logTag,"User Info:" + userStr); //Log info for user
 	        
+	        JSONParser parser=new JSONParser();
+	        
+	        Object authJSON = parser.parse(userStr);
+	        
+	        JSONArray authArray = (JSONArray)authJSON;
+	        JSONObject authInfo = (JSONObject)authArray.get(0);
+	        
+	        String auth = authInfo.get("auth").toString();
+	        
+	        if(auth.equals("No such user")){
+	        	Log.d(logTag, "Auth: No such user, try to register an account" );
+	        	loginConnect.disconnect();
+	        	
+	        	registerUser(username,password);
+	        }
+	        
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			Log.d(logTag, "Login Connection Exception");
@@ -94,6 +104,61 @@ public class APIHandler {
 		return null;
 	}
 	
+	public static UserInfo registerUser(String username, String password){
+		
+		
+		
+		JSONObject obj = new JSONObject();
+		
+		obj.put("password", password);
+		obj.put("username", username);
+		
+		
+		String userAuthInfo = obj.toJSONString();
+		Log.d(logTag,"JSON User Register Info: " + userAuthInfo);
+		URL url;
+		
+
+		try {
+			Log.d(logTag, "Start register connection");
+			url = new URL(authURL);
+		
+			HttpURLConnection registerConnect = (HttpURLConnection)url.openConnection();
+			registerConnect.setReadTimeout(10000 /* milliseconds */);
+			registerConnect.setConnectTimeout(10000 /* milliseconds */);
+			registerConnect.setRequestProperty("METHOD", "registerUser");
+			registerConnect.setRequestMethod("POST");
+			registerConnect.setDoInput(true);
+			registerConnect.setDoOutput(true);
+	        
+	        OutputStream sendData = registerConnect.getOutputStream();
+	        BufferedWriter dataWriter = new BufferedWriter(new OutputStreamWriter(sendData));
+	        dataWriter.write(userAuthInfo);
+	        dataWriter.close();
+	        
+	        registerConnect.connect();
+	        
+	        InputStream userData = registerConnect.getInputStream();
+	        
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(userData));
+	        String userStr = reader.readLine();
+	        reader.close();
+	        registerConnect.disconnect();
+	        
+	        Log.d(logTag,"Registered User Info:" + userStr); //Log info for user
+	        
+	        
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			Log.d(logTag, "Register Connection Exception");
+			e.printStackTrace();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
 	
 	/**
 	 * Utility function
