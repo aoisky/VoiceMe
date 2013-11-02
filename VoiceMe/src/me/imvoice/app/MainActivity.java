@@ -53,7 +53,12 @@ public class MainActivity extends Activity implements OnClickListener{
 	    	case android.R.id.home:
 	    		setSideBar();
 	    		return true;
-	    	
+	    		
+	    	case R.id.action_login:
+	    		Intent login = new Intent(this,LoginActivity.class);
+	    		startActivity(login);
+	    		return true;
+	    		
 	        case R.id.action_settings:
 	        	Intent settings = new Intent(this,SettingsActivity.class);
 	        	startActivity(settings);
