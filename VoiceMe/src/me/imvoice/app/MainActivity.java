@@ -3,8 +3,7 @@ package me.imvoice.app;
  * Launcher activity, used for UI debug now.
  * @author yudong, deenliu
  */
-import me.imvoice.example.classes.SiderbarTester;
-import me.imvoice.example.classes.TabTester;
+
 
 import android.os.Bundle;
 import android.app.ActionBar;
@@ -32,6 +31,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		ActionBar actionBar = getActionBar();
 		setActionBar(actionBar);
 		
+		//Default articles fragment to show on the main
+		setDefaultArticles();
 		//Usage of notificationMgr
 		NotificationMgr notifyMgr = new NotificationMgr(this);
 		notifyMsg(notifyMgr);
@@ -66,7 +67,6 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-		int buttonId = arg0.getId();
 
 		
 	}
@@ -96,7 +96,21 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		actionBar.show();
 	}
-	
+	/**
+	 * Show the articles on the main
+	 */
+	private void setDefaultArticles(){
+		FragmentManager fragmentMgr = this.getFragmentManager();
+		FragmentTransaction transaction = fragmentMgr.beginTransaction();
+		
+		ArticleFragment articles = new ArticleFragment();
+		
+		transaction.add(R.id.article_container, articles);
+		transaction.commit();
+	}
+	/**
+	 * Set a side bar in the main activity by fragment
+	 */
 	private void setSideBar(){
 		FragmentManager fragmentMgr = this.getFragmentManager();
 		FragmentTransaction transaction = fragmentMgr.beginTransaction();
@@ -110,11 +124,12 @@ public class MainActivity extends Activity implements OnClickListener{
 		sidebar = new SidebarFragment();
 
 		
-		transaction.replace(R.id.LinearLayout1, sidebar);
-		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+		transaction.replace(R.id.mainLayout, sidebar);
+		
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		transaction.addToBackStack(null);
 		transaction.commit();
-
+		
 		sidebarFlag = true;
 		
 	}
