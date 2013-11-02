@@ -1,6 +1,7 @@
 package me.imvoice.app;
 
 import android.app.ListFragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -8,6 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+/**
+ * Create a sidebar fragment
+ * @author Yudong Yang
+ *
+ */
 public class SidebarFragment extends ListFragment {
 
 
@@ -17,9 +23,9 @@ public class SidebarFragment extends ListFragment {
 		
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		int width = display.getWidth();
-		view.setAlpha(0.3f);
+		//view.setAlpha(0.3f);
 		view.getLayoutParams().width = (int)(width * 0.7);
-		
+		view.setBackgroundColor(Color.parseColor("#E5E9EF"));
 	    return view;  
 	}
 	
@@ -31,7 +37,6 @@ public class SidebarFragment extends ListFragment {
 		ArrayAdapter<String> sidebarAdapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,sideBarList);
 		setListAdapter(sidebarAdapter);
 	    
-
 
 	}
 	
