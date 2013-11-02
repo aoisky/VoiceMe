@@ -7,30 +7,30 @@ import me.imvoice.example.classes.SiderbarTester;
 import me.imvoice.example.classes.TabTester;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-
 
 public class MainActivity extends Activity implements OnClickListener{
-
+	private boolean sidebarFlag = false;
+	private SidebarFragment sidebar;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Button loginButton = (Button) findViewById(R.id.login);
-		loginButton.setOnClickListener(this);
-		Button exitButton = (Button)findViewById(R.id.exit);
-		exitButton.setOnClickListener(this);
 		
-		//Test use.
-		Button testButton = (Button)findViewById(R.id.sidebar_test);
-		testButton.setOnClickListener(this);
-		Button tabsButton = (Button)findViewById(R.id.tabs_test);
-		tabsButton.setOnClickListener(this);
+		//Get action bar and setting attribute
+		ActionBar actionBar = getActionBar();
+		setActionBar(actionBar);
 		
 		//Usage of notificationMgr
 		NotificationMgr notifyMgr = new NotificationMgr(this);
@@ -46,25 +46,29 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	    	case android.R.id.home:
+	    		setSideBar();
+	    		return true;
+	    	
+	        case R.id.action_settings:
+	        	Intent settings = new Intent(this,SettingsActivity.class);
+	        	startActivity(settings);
+	            return true;
+
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		int buttonId = arg0.getId();
-		switch(buttonId) {
-			case R.id.login:
-				Intent login = new Intent(MainActivity.this,LoginActivity.class);
-				startActivity(login);
-				break;
-			case R.id.sidebar_test:
-				Intent sidebarTest = new Intent(this, SiderbarTester.class);
-				startActivity(sidebarTest);
-				break;
-			case R.id.tabs_test:
-				Intent tabsTest = new Intent(this, MainNotLoginActivity.class);
-				startActivity(tabsTest);
-				break;
-			case R.id.exit:
-				finish();
-		}
+
+		
 	}
 	
 	//A sample to use notificationMgr
@@ -77,5 +81,41 @@ public class MainActivity extends Activity implements OnClickListener{
 		int notifyNum = notifyMgr.createNotify(args);
 		notifyMgr.showNotify(notifyNum);
 	}
+	
+	
+	private void setActionBar(ActionBar actionBar){
+		actionBar.setTitle("VoiceMe");
 
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_HOME);
+		//Set the background of action Bar
+		ColorDrawable background = new ColorDrawable(Color.parseColor("#00A9FF"));
+		background.setAlpha(150);
+		actionBar.setBackgroundDrawable(background);
+
+		actionBar.show();
+	}
+	
+	private void setSideBar(){
+		FragmentManager fragmentMgr = this.getFragmentManager();
+		FragmentTransaction transaction = fragmentMgr.beginTransaction();
+		
+		if(sidebarFlag == true){
+			fragmentMgr.popBackStack();
+			sidebarFlag = false;
+			return;
+		}
+		
+		sidebar = new SidebarFragment();
+
+		
+		transaction.replace(R.id.LinearLayout1, sidebar);
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+		transaction.addToBackStack(null);
+		transaction.commit();
+
+		sidebarFlag = true;
+		
+	}
 }
