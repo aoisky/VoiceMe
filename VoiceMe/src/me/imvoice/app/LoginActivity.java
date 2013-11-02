@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,6 +57,12 @@ public class LoginActivity extends Activity {
 
 		setContentView(R.layout.activity_login);
 
+		ColorDrawable background = new ColorDrawable(Color.parseColor("#00A9FF"));
+		background.setAlpha(150);
+		getActionBar().setBackgroundDrawable(background);
+
+		getActionBar().show();
+		
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
