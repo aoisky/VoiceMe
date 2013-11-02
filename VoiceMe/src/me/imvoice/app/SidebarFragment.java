@@ -23,7 +23,7 @@ public class SidebarFragment extends ListFragment {
 		
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		int width = display.getWidth();
-		//view.setAlpha(0.3f);
+		view.setAlpha(0.95f);
 		view.getLayoutParams().width = (int)(width * 0.7);
 		view.setBackgroundColor(Color.parseColor("#E5E9EF"));
 	    return view;  
@@ -36,8 +36,6 @@ public class SidebarFragment extends ListFragment {
 		String sideBarList[] = {"Main","Headlines","Events","Search","New Article"};
 		ArrayAdapter<String> sidebarAdapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,sideBarList);
 		setListAdapter(sidebarAdapter);
-	    
-
 	}
 	
 }
