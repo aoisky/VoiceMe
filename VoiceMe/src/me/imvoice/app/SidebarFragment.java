@@ -1,8 +1,6 @@
 package me.imvoice.app;
 
 import android.app.ListFragment;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
