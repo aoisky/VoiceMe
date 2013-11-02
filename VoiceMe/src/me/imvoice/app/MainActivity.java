@@ -130,8 +130,8 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		
 		transaction.replace(R.id.mainLayout, sidebar);
-		
-		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		transaction.setCustomAnimations(R.anim.slide_enter, R.anim.slide_exit);
+		//transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		transaction.addToBackStack(null);
 		transaction.commit();
 		
