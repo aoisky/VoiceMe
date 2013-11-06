@@ -46,6 +46,14 @@
             android:name="me.imvoice.app.MainNotLoginActivity"
             android:label="@string/title_activity_main_not_login" >
         </activity>
+        <activity
+            android:name="me.imvoice.app.ArticleActivity"
+            android:label="@string/title_activity_article"
+            android:parentActivityName="me.imvoice.app.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.imvoice.app.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
