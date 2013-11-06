@@ -20,5 +20,6 @@
     <string name="title_section1">Headlines</string>
     <string name="title_section2">Friends</string>
     <string name="title_section3">Recommends</string>
+    <string name="title_activity_comment">CommentActivity</string>
 
 </resources>
