@@ -44,11 +44,11 @@ public class CommentFragment extends ListFragment{
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
 	    
-	    CommentItem comment1 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger","Conte Distinguished Lecture Series Begins -- New Mining Techniques Explored and Excavated", "10-25-2013","Graph Optimization Problems in Data Mining will be the first presentation of the 2013-2014 Sam Conte Distinguished Lecture Series presented by Paul M. Van Dooren, professor of mathematical engineering at Catholic University in Louvain at 3:30 p.m. Monday, Oct. 28 in room 1142 of the Lawson Computer Science building.");
-	    CommentItem comment2 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Elizabeth K. Gardner", "Computer Science professors from Purdue lead the organization of the 2013 Splash Conference in Indianapolis","10-23-2013","This year's conference, which focuses on solving problems faced by the software industry, includes ways to improve tools the average person uses daily like smartphones");
-	    CommentItem comment3 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger","IEEE Computer Society Board Names Elisa Bertino Editor-in-Chief of Top International Journal","10-16-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
-	    CommentItem comment4 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad","Hosking Receives Research Awards from Qualcomm, Inc.","10-15-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
-	    CommentItem comment5 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Buster Dunsmore","CS Student Project Receives Entrepreneurship Prototyping Grant","10-13-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
+	    CommentItem comment1 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger", "10-25-2013","Nice.");
+	    CommentItem comment2 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Elizabeth K. Gardner", "10-13-2013", "Sucks man!");
+	    CommentItem comment3 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger", "10-16-2013", "Fucking amazing!");
+	    CommentItem comment4 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad", "10-15-2013", "Great!");
+	    CommentItem comment5 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Buster Dunsmore", "10-13-2013", "I don't give a shit.");
 	    commentItems.add(comment1);
 	    commentItems.add(comment2);
 	    commentItems.add(comment3);
