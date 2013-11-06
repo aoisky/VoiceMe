@@ -14,8 +14,11 @@
     <string name="title_activity_tab_tester">TabTester</string>
     <string name="title_activity_default">DefaultActivity</string>
     <string name="title_activity_main_not_login">MainNotLoginActivity</string>
-    
     <string name="menu_login">Login</string>
     <string name="menu_signup">Sign Up</string>
+    <string name="title_activity_article">ArticleActivity</string>
+    <string name="title_section1">Headlines</string>
+    <string name="title_section2">Friends</string>
+    <string name="title_section3">Recommends</string>
 
 </resources>
