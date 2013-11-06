@@ -96,15 +96,14 @@ public class CommentFragment extends ListFragment{
 	    private class ViewHolder {
 	        ImageView userAvatar;
 	        TextView userName;
-	        TextView articleTitle;
-	        TextView articleTime;
-	        TextView articleSummary;
+	        TextView commentTime;
+	        TextView comment;
 	    }
 		
 		ViewHolder holder = null;
 		Context context;
-		public CommentAdapter(Context context, int resource, List<CommentItem> articles) {
-			super(context, resource, articles);
+		public CommentAdapter(Context context, int resource, List<CommentItem> comments) {
+			super(context, resource, comments);
 			this.context = context;
 			// TODO Auto-generated constructor stub
 		}
@@ -119,21 +118,20 @@ public class CommentFragment extends ListFragment{
 	                .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 			
 			if(view == null){
-				view = mInflater.inflate(R.layout.article_row, null);
+				view = mInflater.inflate(R.layout.comment_row, null);
 				 holder = new ViewHolder();
 		            holder.userAvatar = (ImageView) view.findViewById(R.id.avatar_image);
-		            holder.articleTitle = (TextView) view.findViewById(R.id.article_title);
-		            holder.articleTime = (TextView) view.findViewById(R.id.article_time);
-		            holder.articleSummary = (TextView) view.findViewById(R.id.article_summary);
-		            holder.userName = (TextView) view.findViewById(R.id.articleuser_name);
+		            holder.commentTime = (TextView) view.findViewById(R.id.comment_time);
+		            holder.comment = (TextView) view.findViewById(R.id.comment);
+		            holder.userName = (TextView) view.findViewById(R.id.commentuser_name);
 		            view.setTag(holder);
 		        } else
 		            holder = (ViewHolder)view.getTag();
 			
 			holder.userName.setText(article.getUserName());
 			holder.userAvatar.setImageDrawable(article.getAvatar());
-			holder.articleTime.setText(article.getTime());
-			holder.articleSummary.setText(article.getSummary());
+			holder.commentTime.setText(article.getTime());
+			holder.comment.setText(article.getSummary());
 	    	return view;
 	        
 	    }
