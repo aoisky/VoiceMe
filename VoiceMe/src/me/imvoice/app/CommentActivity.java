@@ -10,6 +10,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Activity class for comment page(s).
@@ -19,7 +23,11 @@ import android.view.MenuItem;
 
 public class CommentActivity extends Activity {
 
+	// Assume using articleID to fetch comments of a specific article.
+	// UserInfo used to add comment.
+	// should be passed by ArticleActivity.
 	private int articleID;
+	private UserInfo userInfo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,21 @@ public class CommentActivity extends Activity {
 		
 		//Default articles fragment to show on the main
 		setDefaultComment();
+	}
+	
+	public void clickHandler(View target) {
+		switch(target.getId()) {
+		
+			case R.id.comment_button:
+	        	EditText et = (EditText)findViewById(R.id.comment_content);
+	        	String comment = et.getText().toString();
+	        	Toast.makeText(this, comment, Toast.LENGTH_LONG).show();
+	        	break;
+	        	
+			default:
+				break;
+		
+		}
 	}
 	
 	@Override
