@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip"  >
+    
+    <!-- Author deenliu -->
+    <!-- ListRow Left sied Thumbnail image -->
+
+    <LinearLayout
+        android:id="@+id/commentLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip"
+        android:padding="3dip" >
+
+        <ImageView
+            android:id="@+id/avatar_image"
+            android:layout_width="40dip"
+            android:layout_height="40dip" 
+            android:contentDescription="avatarImage"/>
+    </LinearLayout>
+
+    <!-- User name -->
+
+    <TextView
+        android:id="@+id/commentuser_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/commentLinear"
+        android:layout_toRightOf="@id/commentLinear"
+        android:text="user_name"
+        android:textColor="#040404"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/comment_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/commentuser_name"
+        android:layout_marginBottom="1dip"
+        android:text="comment_time"
+        android:textColor="#10bcc9"
+        android:textSize="12sp"
+        tools:ignore="SmallSp" />
+    
+    <TextView 
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/commentuser_name"
+        android:layout_toRightOf="@id/commentLinear"
+        android:text="comment"
+        android:textColor="#040404"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:typeface="sans" />
+    
+
+</RelativeLayout>
