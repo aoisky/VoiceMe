@@ -175,6 +175,20 @@ public class APIHandler {
 	}
 	
 	public static int createNewArticle(UserInfo user, Bundle articleInfo){
+		JSONObject contentObject = new JSONObject();
+		String content = articleInfo.getString("content");
+		
+		
+		if(content == null || user == null){
+			//No article content or no userInfo
+			return -1;
+		}
+		
+		contentObject.put("uid", user.getuid());
+		contentObject.put("article_content", content);
+		
+		String articleStr = contentObject.toJSONString();
+		Log.d(logTag, "Start posting article");
 		
 		return 0;
 	}
