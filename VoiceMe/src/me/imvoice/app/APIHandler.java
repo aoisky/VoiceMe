@@ -118,43 +118,8 @@ public class APIHandler {
 		Log.d(logTag,"JSON User Register Info: " + userAuthInfo);
 		URL url;
 		
+		String returnInfo = apiConnection("registerUser", userAuthInfo);
 
-		try {
-			Log.d(logTag, "Start register connection");
-			url = new URL(authURL);
-		
-			HttpURLConnection registerConnect = (HttpURLConnection)url.openConnection();
-			registerConnect.setReadTimeout(10000 /* milliseconds */);
-			registerConnect.setConnectTimeout(10000 /* milliseconds */);
-			registerConnect.setRequestProperty("METHOD", "registerUser");
-			registerConnect.setRequestMethod("POST");
-			registerConnect.setDoInput(true);
-			registerConnect.setDoOutput(true);
-	        
-	        OutputStream sendData = registerConnect.getOutputStream();
-	        BufferedWriter dataWriter = new BufferedWriter(new OutputStreamWriter(sendData));
-	        dataWriter.write(userAuthInfo);
-	        dataWriter.close();
-	        
-	        registerConnect.connect();
-	        
-	        InputStream userData = registerConnect.getInputStream();
-	        
-	        BufferedReader reader = new BufferedReader(new InputStreamReader(userData));
-	        String userStr = reader.readLine();
-	        reader.close();
-	        registerConnect.disconnect();
-	        
-	        Log.d(logTag,"Registered User Info:" + userStr); //Log info for user
-	        
-	        
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			Log.d(logTag, "Register Connection Exception");
-			e.printStackTrace();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
 		
 		return null;
 		
@@ -174,6 +139,47 @@ public class APIHandler {
 		return false;
 	}
 	
+	
+	private static String apiConnection(String requestMethod, String JSONInfo){
+		URL url;
+		try {
+			Log.d(logTag, "Start register connection");
+			url = new URL(authURL);
+		
+			HttpURLConnection registerConnect = (HttpURLConnection)url.openConnection();
+			registerConnect.setReadTimeout(10000 /* milliseconds */);
+			registerConnect.setConnectTimeout(10000 /* milliseconds */);
+			registerConnect.setRequestProperty("METHOD", "registerUser");
+			registerConnect.setRequestMethod("POST");
+			registerConnect.setDoInput(true);
+			registerConnect.setDoOutput(true);
+	        
+	        OutputStream sendData = registerConnect.getOutputStream();
+	        BufferedWriter dataWriter = new BufferedWriter(new OutputStreamWriter(sendData));
+	        dataWriter.write(JSONInfo);
+	        dataWriter.close();
+	        
+	        registerConnect.connect();
+	        
+	        InputStream userData = registerConnect.getInputStream();
+	        
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(userData));
+	        String userStr = reader.readLine();
+	        reader.close();
+	        registerConnect.disconnect();
+	        
+	        Log.d(logTag,"Returned JSON Info:" + userStr); //Log info for user
+	        return userStr;
+	        
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			Log.d(logTag, "Register Connection Exception");
+			e.printStackTrace();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public static int createNewArticle(UserInfo user, Bundle articleInfo){
 		JSONObject contentObject = new JSONObject();
 		String content = articleInfo.getString("content");
@@ -190,6 +196,7 @@ public class APIHandler {
 		String articleStr = contentObject.toJSONString();
 		Log.d(logTag, "Start posting article");
 		
+		String returnInfo = apiConnection("post_content", content);
 		return 0;
 	}
 	
