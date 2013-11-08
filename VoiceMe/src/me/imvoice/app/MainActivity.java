@@ -7,8 +7,6 @@ package me.imvoice.app;
 
 
 import java.util.Locale;
-
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -96,7 +94,6 @@ public class MainActivity extends Activity{
 	
 	private void setActionBar(ActionBar actionBar){
 		actionBar.setTitle("VoiceMe");
-
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_HOME);
@@ -104,7 +101,6 @@ public class MainActivity extends Activity{
 		ColorDrawable background = new ColorDrawable(Color.parseColor("#00A9FF"));
 		background.setAlpha(150);
 		actionBar.setBackgroundDrawable(background);
-
 		actionBar.show();
 	}
 	
