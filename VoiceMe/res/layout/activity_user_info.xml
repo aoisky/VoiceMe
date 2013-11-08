@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- author Chenlin zhou -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   	android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="0dp"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="0dp"
+    android:layout_alignParentTop="true" 
+    android:layout_centerHorizontal="true"
+    tools:context=".UserInfoActivity" >
+               
+    <FrameLayout
+        android:id="@+id/action_user"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" >
+
+       
+    </FrameLayout>
+    
+	<ImageView
+	    android:id="@+id/user_headicon"
+	    android:layout_width="100dp"
+	    android:layout_height="100dp"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="20dp"
+	    android:layout_marginLeft="20dp"
+	    android:src="@drawable/voice" />
+ 	
+	<TextView
+	    android:id="@+id/user_nick"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginTop="30dp"
+	    android:layout_toRightOf="@id/user_headicon"
+	    android:textColor="#384050"
+	    android:textSize="40dp" 
+	    android:text="@string/user_nick" />
+	
+	<TextView
+	    android:id="@+id/edit_profile"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="30dp"
+	    android:layout_marginTop="80dp"
+	    android:layout_toRightOf="@id/user_headicon"
+	    android:textColor="#384050"
+	    android:textSize="20dp" 
+	    android:text="@string/edit_profile" />
+        
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="50dp"
+	    android:layout_marginTop="120dp"
+	    android:gravity="center" >
+            
+	    	<Button
+		    	android:id="@+id/content"
+	           android:layout_height="fill_parent"
+	           android:layout_width="wrap_content"
+	           android:text="@string/content" />
+    
+	    	<Button
+	    	    android:id="@+id/shares"
+	           android:layout_height="fill_parent"
+	           android:layout_width="wrap_content"
+	           android:text="@string/shares" />
+	    	
+	    	<Button
+	    	    android:id="@+id/favorites"
+	           android:layout_height="fill_parent"
+	           android:layout_width="wrap_content"
+	           android:text="@string/favorites" />
+	    	
+        </LinearLayout>
+        
+		<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What's new"
+            android:layout_marginLeft="15dp"
+	   		android:layout_marginTop="180dp"
+	   		android:textSize="20dp" 
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+</RelativeLayout>

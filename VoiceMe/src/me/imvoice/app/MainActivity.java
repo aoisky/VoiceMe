@@ -75,6 +75,13 @@ public class MainActivity extends Activity{
 	        	Intent settings = new Intent(this,SettingsActivity.class);
 	        	startActivity(settings);
 	            return true;
+	            
+	            // for test only
+	        case R.id.action_user:
+	        	Intent user = new Intent(this,UserInfoActivity.class);
+	        	startActivity(user);
+	            return true;
+	            
 
 	        default:
 	            return super.onOptionsItemSelected(item);
