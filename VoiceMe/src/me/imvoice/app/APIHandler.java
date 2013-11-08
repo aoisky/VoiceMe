@@ -28,6 +28,8 @@ public class APIHandler {
 
 	private static final String logTag = "APIHandler";
 	private static final String authURL = "http://puuca.org/app_conn/auth.php";
+
+	
 	private APIHandler(){
 		
 	}
@@ -199,6 +201,8 @@ public class APIHandler {
 	}
 	
 	public static int createNewComment(UserInfo user, Bundle commentInfo){
+		
+		
 		return 0;
 	}
 }
