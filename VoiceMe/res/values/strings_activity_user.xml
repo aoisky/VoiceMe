@@ -1,0 +1,17 @@
+<!-- author Chenlin zhou -->
+
+<resources>
+
+    <string name="title_activity_user">User</string>
+	 <string name="action_user">User</string>
+	 
+    <!-- Strings related to User -->
+    <string name="user_nick">Wooooo</string>
+    <string name="edit_profile">Edit</string>
+    <string name="content">Content</string>
+    <string name="shares">Shares</string>
+    <string name="favorites">Favorites</string>
+
+
+</resources>
+    
