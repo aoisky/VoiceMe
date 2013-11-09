@@ -31,7 +31,7 @@ public class CommentFragment extends ListFragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.list_text_field,
+		View view = inflater.inflate(R.layout.not_selectable_list,
                 container, false);
 		
         listView = (ListView) view.findViewById(android.R.id.list);

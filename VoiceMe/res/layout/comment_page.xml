@@ -9,10 +9,37 @@
     android:paddingTop="0dp"
     tools:context=".CommentActivity" >
 
+    <LinearLayout
+        android:id="@+id/add_comment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:paddingTop="5dp" >
+    
+	    <EditText 
+	        android:id="@+id/comment_content"
+	        android:layout_weight="8"
+	    	android:layout_width="0dp"
+	    	android:layout_height="fill_parent"
+	    	android:hint="text" />
+	    
+	    <Button
+	        android:id="@+id/comment_button"
+	        android:layout_weight="2"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:text="Send"
+	        android:onClick="clickHandler" />
+    
+    </LinearLayout>
+    
     <FrameLayout 
     	android:id="@+id/comment_container"
     	android:layout_width="match_parent"
-    	android:layout_height="match_parent">
+    	android:layout_height="wrap_content"
+    	android:layout_above="@id/add_comment">
         
     </FrameLayout>
 

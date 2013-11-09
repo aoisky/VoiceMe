@@ -11,7 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -61,9 +60,6 @@ public class CommentActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
-	    	case android.R.id.home:
-	    		this.finish();
-	    		return true;
 	    		
 	        case R.id.action_settings:
 	        	Intent settings = new Intent(this,SettingsActivity.class);
@@ -90,10 +86,7 @@ public class CommentActivity extends Activity {
 	
 	private void setActionBar(ActionBar actionBar){
 		actionBar.setTitle("Comments");
-
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_HOME);
+		
 		//Set the background of action Bar
 		ColorDrawable background = new ColorDrawable(Color.parseColor("#00A9FF"));
 		background.setAlpha(150);
