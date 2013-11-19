@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -65,6 +68,37 @@ public class SidebarFragment extends ListFragment {
 	    
         sidebarAdapter = new mySidebarAdapter(getActivity(), android.R.id.list, menuItems);
         listView.setAdapter(sidebarAdapter);
+        listView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int itemInt,
+					long arg3) {
+
+				switch(itemInt){
+					case 0: //Home page
+					
+					break;
+				
+					case 1: //User Info page
+						Intent userInfoIntent = new Intent(getActivity(), UserInfoActivity.class);
+						startActivity(userInfoIntent);
+					break;
+					
+					case 2:  //Favorite page
+						
+					break;
+					
+					case 3:  //New Article page
+						
+					break;
+					
+					case 4: //Other page
+						
+					break;
+				}
+			}
+        	
+        });
 	}
 	
 	public class MenuItem{
