@@ -27,6 +27,7 @@ public class UserInfoActivity extends Activity {
 			
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_user_info);
+			userInfo = (UserInfo)getIntent().getExtras().get("UserInfo");  //Get User Info data
 			
 			//Get action bar and setting attribute
 			ActionBar actionBar = getActionBar();
