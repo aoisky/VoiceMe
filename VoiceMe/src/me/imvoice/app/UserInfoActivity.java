@@ -29,7 +29,7 @@ public class UserInfoActivity extends Activity {
 			
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_user_info);
-			userInfo = (UserInfo)getIntent().getExtras().get("UserInfo");  //Get User Info data
+			userInfo = APIHandler.readUserInfo(this);
 			//Get two views by id
 			userIcon = (ImageView)findViewById(R.id.user_headicon);
 			nickname = (TextView) findViewById(R.id.user_nick);
@@ -39,7 +39,7 @@ public class UserInfoActivity extends Activity {
 			
 			if(userInfo != null){
 				//Set user avatar and username in the activity
-				userIcon.setImageDrawable(userInfo.getUserAvatar());
+				userIcon.setImageBitmap(userInfo.getUserAvatar());
 				nickname.setText(userInfo.getUserName());
 			}
 		}
