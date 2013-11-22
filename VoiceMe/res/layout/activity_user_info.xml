@@ -37,12 +37,13 @@
 	    android:id="@+id/user_nick"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
 	    android:layout_marginLeft="20dp"
 	    android:layout_marginTop="30dp"
 	    android:layout_toRightOf="@id/user_headicon"
+	    android:text="@string/user_nick"
 	    android:textColor="#384050"
-	    android:textSize="40dp" 
-	    android:text="@string/user_nick" />
+	    android:textSize="35sp" />
 	
 	<TextView
 	    android:id="@+id/edit_profile"
