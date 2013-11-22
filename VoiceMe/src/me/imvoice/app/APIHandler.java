@@ -2,15 +2,23 @@ package me.imvoice.app;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -25,7 +33,7 @@ import org.json.simple.parser.JSONParser;
  *
  */
 public class APIHandler {
-
+	private static final String userInfoStr = "UserInfoPref";
 	private static final String logTag = "APIHandler";
 	private static final String authURL = "http://puuca.org/app_conn/auth.php";
 
@@ -205,4 +213,56 @@ public class APIHandler {
 		
 		return 0;
 	}
+	
+	public static void saveUserInfo(Context context, UserInfo userInfo){
+
+		SharedPreferences userInfoPref = context.getSharedPreferences(userInfoStr, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = userInfoPref.edit();
+		editor.putString("UserName", userInfo.getUserName());
+		editor.putInt("UID", userInfo.getuid());
+		editor.putInt("Age", userInfo.getAge());
+		editor.putString("Email", userInfo.getEmail());
+		editor.putString("Password", userInfo.getmd5Password());
+		editor.apply();
+		try {
+			FileOutputStream out = context.openFileOutput("UserAvatar.PNG", Context.MODE_PRIVATE);
+			Bitmap userIcon = userInfo.getUserAvatar();
+			userIcon.compress(Bitmap.CompressFormat.PNG, 100, out);
+			out.flush();
+			out.close();
+			} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	}
+	
+	public static UserInfo readUserInfo(Context context){
+
+		SharedPreferences userInfoPref = context.getSharedPreferences(userInfoStr, Context.MODE_PRIVATE);
+		try {
+			FileInputStream in = context.openFileInput("UserAvatar.PNG");
+			Bitmap userIcon = BitmapFactory.decodeStream(in);
+			in.close();
+			String userName = userInfoPref.getString("UserName","Not Login");
+			int userAge = userInfoPref.getInt("Age", 0);
+			int uid = userInfoPref.getInt("UID", 0);
+			String email = userInfoPref.getString("Email", "NONE");
+			String password = userInfoPref.getString("Password", "");
+			UserInfo userInfo = new UserInfo(userName, uid, userIcon, userAge, email, password);
+			return userInfo;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
 }
