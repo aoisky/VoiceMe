@@ -7,10 +7,14 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +85,10 @@ public class SidebarFragment extends ListFragment {
 				
 					case 1: //User Info page
 						Intent userInfoIntent = new Intent(getActivity(), UserInfoActivity.class);
+						//Create a user info for testing
+						Bitmap userIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+						UserInfo userInfo = new UserInfo("Test User", 1, userIcon, 20, "test@purdue.edu", "Password" );
+						APIHandler.saveUserInfo(getActivity(), userInfo);
 						startActivity(userInfoIntent);
 					break;
 					
