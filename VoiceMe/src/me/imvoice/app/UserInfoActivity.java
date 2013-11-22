@@ -21,6 +21,8 @@ public class UserInfoActivity extends Activity {
 		// should be passed by ArticleActivity.
 		private int articleID;
 		private UserInfo userInfo;
+		private ImageView userIcon;
+		private TextView nickname;
 		
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,18 @@ public class UserInfoActivity extends Activity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_user_info);
 			userInfo = (UserInfo)getIntent().getExtras().get("UserInfo");  //Get User Info data
-			
+			//Get two views by id
+			userIcon = (ImageView)findViewById(R.id.user_headicon);
+			nickname = (TextView) findViewById(R.id.user_nick);
 			//Get action bar and setting attribute
 			ActionBar actionBar = getActionBar();
 			setActionBar(actionBar);
 			
-
+			if(userInfo != null){
+				//Set user avatar and username in the activity
+				userIcon.setImageDrawable(userInfo.getUserAvatar());
+				nickname.setText(userInfo.getUserName());
+			}
 		}
 
 		@Override
