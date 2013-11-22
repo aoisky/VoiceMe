@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -57,6 +59,16 @@ public class ArticleFragment extends ListFragment{
 	    
         articleAdapter = new myArticleAdapter(getActivity(), android.R.id.list, articleItems);
         listView.setAdapter(articleAdapter);
+        listView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View view, int itemInt,
+					long myLong) {
+				// TODO Auto-generated method stub
+				
+			}
+        	
+        });
 	}
 	
 	public class ArticleItem{
@@ -65,6 +77,7 @@ public class ArticleFragment extends ListFragment{
 		private CharSequence articleTitle;
 		private CharSequence textSummary;
 		private CharSequence articleTime;
+		private int articleId;
 	
 		public ArticleItem(Drawable userIcon, CharSequence userName, CharSequence articleTitle, CharSequence articleTime, CharSequence articleSummary){
 			this.userAvatar = userIcon;
@@ -92,6 +105,10 @@ public class ArticleFragment extends ListFragment{
 		
 		public CharSequence getUserName(){
 			return userName;
+		}
+		
+		public int getArticleId(){
+			return articleId;
 		}
 	}
 	
