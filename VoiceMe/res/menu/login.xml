@@ -5,4 +5,9 @@
         android:showAsAction="never"
         android:title="@string/action_forgot_password"/>
 
+    <item
+        android:id="@+id/action_signup"
+        android:showAsAction="always"
+        android:title="@string/menu_signup"/>
+        
 </menu>
