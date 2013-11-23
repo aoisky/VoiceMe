@@ -14,15 +14,4 @@
         android:title="@string/action_settings"
         />
 
-
-     <item
-        android:id="@+id/action_user"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_user"
-        />
-
-
-
-
 </menu>
