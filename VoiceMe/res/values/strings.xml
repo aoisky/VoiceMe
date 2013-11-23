@@ -21,5 +21,8 @@
     <string name="title_section2">Friends</string>
     <string name="title_section3">Recommends</string>
     <string name="title_activity_comment">CommentActivity</string>
-    
+    <string name="title_activity_signup">SignupActivity</string>
+	<string name="signup_basic_info">Basic Information</string>
+	<string name="signup_upload_icon">Upload User Icon</string>
+	<string name="signup_detail_info">Detail Inforamtion</string>
 </resources>
