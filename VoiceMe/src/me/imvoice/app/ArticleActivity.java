@@ -1,13 +1,19 @@
 package me.imvoice.app;
 
+import java.util.Locale;
+
+import me.imvoice.app.MainActivity.SectionsPagerAdapter;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,41 +54,52 @@ public class ArticleActivity extends Activity {
 			article_title = "Untitled";
 		}
 			
+		ViewPager articleViewPager = (ViewPager)findViewById(R.id.article);
+		ArticlePagerAdapter myPagerAdapter = new ArticlePagerAdapter(getFragmentManager());
+		articleViewPager.setAdapter(myPagerAdapter);
+		
 		//Get action bar and setting attribute
 		ActionBar actionBar = getActionBar();
 		setActionBar(actionBar);
-		setButtonColor();
-		setDefaultArticleContent();
+//		setButtonColor();
+//		setDefaultArticleContent();
 	}
 
-	public void clickHandler(View target) {
-		switch(target.getId()) {
-		
-			case R.id.like_btn:
-	        	break;
-	        	
-			case R.id.comment_btn:
-				Intent comment = new Intent(this, CommentActivity.class);
-				startActivity(comment);
-				break;
-				
-			case R.id.share_btn:
-				break;
-	        	
-			default:
-				break;
-		
-		}
-	}
+//	public void clickHandler(View target) {
+//		switch(target.getId()) {
+//		
+//			case R.id.like_btn:
+//	        	break;
+//	        	
+//			case R.id.comment_btn:
+//				Intent comment = new Intent(this, CommentActivity.class);
+//				startActivity(comment);
+//				break;
+//				
+//			case R.id.share_btn:
+//				break;
+//	        	
+//			default:
+//				break;
+//		
+//		}
+//	}
 	
-	private void setDefaultArticleContent(){
-		FragmentManager fragmentMgr = this.getFragmentManager();
-		FragmentTransaction transaction = fragmentMgr.beginTransaction();
-		
-		ArticleContentFragment comments = new ArticleContentFragment();
-		
-		transaction.add(R.id.article_container, comments);
-		transaction.commit();
+	public class ArticlePagerAdapter extends FragmentPagerAdapter {
+
+		public ArticlePagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			return new ArticleContentFragment();
+		}
+
+		@Override
+		public int getCount() {
+			return 1;
+		}
 	}
 	
 	private void setActionBar(ActionBar actionBar){
@@ -94,15 +111,6 @@ public class ArticleActivity extends Activity {
 		actionBar.setBackgroundDrawable(background);
 
 		actionBar.show();
-	}
-	
-	private void setButtonColor(){
-		Button like_btn = (Button)findViewById(R.id.like_btn);
-		Button comment_btn = (Button)findViewById(R.id.comment_btn);
-		Button share_btn = (Button)findViewById(R.id.share_btn);
-		like_btn.setBackgroundResource(R.drawable.aritcle_btns);
-		comment_btn.setBackgroundResource(R.drawable.aritcle_btns);
-		share_btn.setBackgroundResource(R.drawable.aritcle_btns);
 	}
 	
 	@Override

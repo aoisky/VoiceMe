@@ -1,40 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/article"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-    <RelativeLayout
-        android:id="@+id/artical_title_container"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:background="@color/main_btn_clr" >
+    <!-- Deen Liu -->
     
-		<TextView 
-		    android:id="@+id/article_title"
-		    android:layout_height="wrap_content"
-		    android:layout_width="wrap_content"
-		    android:layout_alignParentLeft="true"
-		    android:layout_toRightOf="@+id/avatar_image"
-		    android:textSize="18sp" />
-		    
+    <LinearLayout
+        android:id="@+id/article_container"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentTop="true"
+    	android:orientation="vertical"
+    	android:paddingRight="@dimen/activity_horizontal_margin" >
+    
+	    <RelativeLayout
+	        android:id="@+id/artical_title_container"
+	        android:layout_height="wrap_content"
+	        android:layout_width="fill_parent"
+	        android:background="@drawable/border" >
+	    
+			<TextView 
+			    android:id="@+id/article_title"
+			    android:layout_height="wrap_content"
+			    android:layout_centerVertical="true"
+			    android:layout_width="wrap_content"
+			    android:layout_alignParentLeft="true"
+			    android:layout_toLeftOf="@+id/article_avatar"
+			    android:paddingLeft="@dimen/activity_horizontal_margin" 
+			    android:text="ABC"/>
+			    
+		    <ImageView
+	            android:id="@+id/article_avatar"
+	            android:layout_width="40dip"
+	            android:layout_height="40dip"
+	            android:layout_margin="3dip"
+	            android:layout_alignParentRight="true" 
+	            android:contentDescription="avatarImage" />
+			    
+		</RelativeLayout>
+		
 	    <ImageView
-            android:id="@+id/avatar_image"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
-            android:layout_margin="3dip"
-            android:layout_alignParentRight="true" 
-            android:contentDescription="avatarImage" />
-		    
-	</RelativeLayout>
-	
-    <ImageView
-        android:id="@+id/article_pic"
+	        android:id="@+id/article_pic"
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip"
+	        android:contentDescription="ArticleImage" />
+	    
+	    <!-- <TextView
+	        android:id="@+id/article_content"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content" /> -->
+    
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/article_action"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:weightSum="9"
+        android:orientation="horizontal"
+        style="@android:style/ButtonBar"
+        android:background="@color/main_btn_clr" >
+	    
+	    <Button
+	        android:id="@+id/like_btn"
+	        android:layout_weight="3"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:text="Like"
+	        android:onClick="clickHandler" />
+	    
+	    <Button
+	        android:id="@+id/comment_btn"
+	        android:layout_weight="3"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:text="Comment"
+	        android:onClick="clickHandler" />
+	    
+	    <Button
+	        android:id="@+id/share_btn"
+	        android:layout_weight="3"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:text="Share"
+	        android:onClick="clickHandler" />
     
-    <TextView
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content" />
+    </LinearLayout>
     
-</android.support.v4.view.ViewPager>
+</RelativeLayout>
