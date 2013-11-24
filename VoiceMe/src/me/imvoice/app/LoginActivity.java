@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -102,6 +104,21 @@ public class LoginActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	   
+	    switch (item.getItemId()) {
+	    		
+	    	case R.id.action_signup:
+	    		Intent signup = new Intent(this,SignupActivity.class);
+	    		startActivity(signup);
+	    		return true;
+
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 	/**
 	 * Attempts to sign in or register the account specified by the login form.
 	 * If there are form errors (invalid email, missing fields, etc.), the
@@ -218,9 +235,10 @@ public class LoginActivity extends Activity {
 			try {
 				// Simulate network access.
 				//Use API to auth login
-				APIHandler.authLogin(mEmail, mPassword);
+				//APIHandler.authLogin(mEmail, mPassword);
 				
 				Thread.sleep(2000);
+				
 			} catch (InterruptedException e) {
 				return false;
 			}
@@ -243,6 +261,8 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
+				Intent main = new Intent(getBaseContext(), MainActivity.class);
+				startActivity(main);
 				finish();
 			} else {
 				mPasswordView
