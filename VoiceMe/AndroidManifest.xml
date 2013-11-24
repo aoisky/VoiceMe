@@ -19,16 +19,23 @@
         <activity
             android:name="me.imvoice.app.MainActivity"
             android:label="@string/app_name" >
+<<<<<<< HEAD
             <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter> -->
+=======
+>>>>>>> 1cc062cc6f47c6b5c9f54ab632750e926f30e9f7
         </activity>
         <activity
             android:name="me.imvoice.app.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="me.imvoice.app.SettingsActivity"
