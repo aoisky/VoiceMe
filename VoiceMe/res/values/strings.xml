@@ -7,6 +7,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="action_login">Login</string>
+    <string name="action_logout">Logout</string>
     <string name="signup">Sign Up</string>
     <string name="browsing">Browsing</string>
     <string name="exit">Exit</string>
@@ -21,7 +22,7 @@
     <string name="title_section2">Friends</string>
     <string name="title_section3">Recommends</string>
     <string name="title_activity_comment">CommentActivity</string>
-    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_signup">VoiceMe Sign Up</string>
 	<string name="signup_basic_info">Basic Information</string>
 	<string name="signup_upload_icon">Upload User Icon</string>
 	<string name="signup_detail_info">Detail Inforamtion</string>
