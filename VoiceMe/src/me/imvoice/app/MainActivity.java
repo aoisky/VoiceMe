@@ -66,9 +66,10 @@ public class MainActivity extends Activity{
 	    		setSideBar();
 	    		return true;
 	    		
-	    	case R.id.action_login:
+	    	case R.id.action_logout:
 	    		Intent login = new Intent(this,LoginActivity.class);
 	    		startActivity(login);
+	    		finish();
 	    		return true;
 	    		
 	        case R.id.action_settings:
@@ -133,7 +134,7 @@ public class MainActivity extends Activity{
 					
 				case 2:
 					return new ArticleFragment();
-					
+				
 			}
 			
 			return null;
