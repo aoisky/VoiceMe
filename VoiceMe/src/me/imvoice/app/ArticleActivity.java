@@ -3,6 +3,8 @@ package me.imvoice.app;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -24,8 +26,8 @@ import android.widget.Toast;
 
 public class ArticleActivity extends Activity {
 	
-	private static final String TAG = ArticleActivity.class.getName();
 	private String title;
+	private String article_title;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +40,19 @@ public class ArticleActivity extends Activity {
 		catch(Exception e) {
 			title = "Untitled";
 		}
+		
+		try {
+			article_title = getIntent().getExtras().getString("article_title");
+		}
+		catch (Exception e) {
+			article_title = "Untitled";
+		}
 			
 		//Get action bar and setting attribute
 		ActionBar actionBar = getActionBar();
 		setActionBar(actionBar);
 		setButtonColor();
+		setDefaultArticleContent();
 	}
 
 	public void clickHandler(View target) {
@@ -52,6 +62,8 @@ public class ArticleActivity extends Activity {
 	        	break;
 	        	
 			case R.id.comment_btn:
+				Intent comment = new Intent(this, CommentActivity.class);
+				startActivity(comment);
 				break;
 				
 			case R.id.share_btn:
@@ -61,6 +73,16 @@ public class ArticleActivity extends Activity {
 				break;
 		
 		}
+	}
+	
+	private void setDefaultArticleContent(){
+		FragmentManager fragmentMgr = this.getFragmentManager();
+		FragmentTransaction transaction = fragmentMgr.beginTransaction();
+		
+		ArticleContentFragment comments = new ArticleContentFragment();
+		
+		transaction.add(R.id.article_container, comments);
+		transaction.commit();
 	}
 	
 	private void setActionBar(ActionBar actionBar){
