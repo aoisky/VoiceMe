@@ -12,6 +12,7 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 /**
  * ArticleActivity - used to display a single article.
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 public class ArticleActivity extends Activity {
 	
 	private String title;
+	private ArticleContentFragment fragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +56,18 @@ public class ArticleActivity extends Activity {
 
 		@Override
 		public Fragment getItem(int position) {
-			return new ArticleContentFragment();
+			fragment = new ArticleContentFragment();
+			return fragment;
 		}
 
 		@Override
 		public int getCount() {
-			return 1;
+			return 3;
 		}
+	}
+	
+	public void clickHandler(View target) {
+		fragment.clickHandler(target);
 	}
 	
 	private void setActionBar(ActionBar actionBar){

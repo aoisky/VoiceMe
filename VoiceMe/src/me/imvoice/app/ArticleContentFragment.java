@@ -35,7 +35,7 @@ public class ArticleContentFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
 	    ArticleTitle title = new ArticleTitle("Purdue helps bring SplashCon to Indianapolis; provides unique opportunity to Indiana computer science students", new ColorDrawable(Color.parseColor("#00A9FF")), "I am the author");
-	    ArticleContent content = new ArticleContent("https://www.google.com/images/srpr/logo11w.png", ""
+	    ArticleContent content = new ArticleContent("https://www.cs.purdue.edu/images/slider/splash.jpg", ""
 	    		+"WEST LAFAYETTE, Ind. - Computer scientists from Purdue University led the organization of the 2013 Splash Conference, and helped bring the top software development conference to Indianapolis.\n\n"
 	    		+"\"This is the first time this important conference has been held in our area and is easily accessible to students in Indiana and the Midwest,\" said Hosking, an associate professor of computer science. “There are already more than 30 Purdue undergraduate students signed up to go for whom travel to past locations would have been prohibitively expensive. We really want to encourage students to take advantage of this opportunity to learn from giants in the field and to network with other students and industry representatives.\"\n\n"
 	    		+"Purdue students can attend the conference for free on Tuesday (Oct. 29) and the university is providing bus transportation from the West Lafayette campus to and from the conference for any students within the area. Students interested in riding the bus should contact Pat Morgan at pam@cs.purdue.edu.");

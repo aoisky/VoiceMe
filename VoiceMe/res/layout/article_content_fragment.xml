@@ -14,7 +14,6 @@
         android:layout_alignParentBottom="true"
         android:weightSum="9"
         android:orientation="horizontal"
-        style="@android:style/ButtonBar"
         android:background="@color/main_btn_clr" >
 	    
 	    <Button
@@ -92,7 +91,7 @@
 		
 	    <ImageView
 	        android:id="@+id/article_pic"
-	        android:layout_width="fill_parent"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:contentDescription="ArticleImage"
 	        android:paddingLeft="@dimen/activity_horizontal_margin"
