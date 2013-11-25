@@ -111,6 +111,9 @@ public class LoginActivity extends Activity {
 	    		
 	    	case R.id.action_signup:
 	    		Intent signup = new Intent(this,SignupActivity.class);
+	    		signup.putExtra("email", mEmailView.getText().toString());
+	    		signup.putExtra("password", mPasswordView.getText().toString());
+	    		
 	    		startActivity(signup);
 	    		return true;
 
