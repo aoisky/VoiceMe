@@ -8,19 +8,13 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 /**
  * ArticleActivity - used to display a single article.
@@ -61,29 +55,7 @@ public class ArticleActivity extends Activity {
 		//Get action bar and setting attribute
 		ActionBar actionBar = getActionBar();
 		setActionBar(actionBar);
-//		setButtonColor();
-//		setDefaultArticleContent();
 	}
-
-//	public void clickHandler(View target) {
-//		switch(target.getId()) {
-//		
-//			case R.id.like_btn:
-//	        	break;
-//	        	
-//			case R.id.comment_btn:
-//				Intent comment = new Intent(this, CommentActivity.class);
-//				startActivity(comment);
-//				break;
-//				
-//			case R.id.share_btn:
-//				break;
-//	        	
-//			default:
-//				break;
-//		
-//		}
-//	}
 	
 	public class ArticlePagerAdapter extends FragmentPagerAdapter {
 

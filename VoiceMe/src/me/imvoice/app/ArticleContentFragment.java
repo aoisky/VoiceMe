@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -77,15 +78,6 @@ public class ArticleContentFragment extends Fragment {
 	    }
 	}
 	
-	private void setButtonColor(View view){
-		Button like_btn = (Button)(view.findViewById(R.id.like_btn));
-		Button comment_btn = (Button)(view.findViewById(R.id.comment_btn));
-		Button share_btn = (Button)(view.findViewById(R.id.share_btn));
-		like_btn.setBackgroundResource(R.drawable.aritcle_btns);
-		comment_btn.setBackgroundResource(R.drawable.aritcle_btns);
-		share_btn.setBackgroundResource(R.drawable.aritcle_btns);
-	}
-	
 	private void setView(View view, Article article) {
 		String title = article.getTitle().getTitle();
 		Drawable avatar = article.getTitle().getAvatar();
@@ -105,6 +97,26 @@ public class ArticleContentFragment extends Fragment {
 		urls[0] = picUrl;
 		RetreiveFeedTask task = new RetreiveFeedTask();
 		task.execute(urls);
+	}
+	
+	public void clickHandler(View target) {
+		switch(target.getId()) {
+		
+			case R.id.like_btn:
+	        	break;
+	        	
+			case R.id.comment_btn:
+				Intent comment = new Intent(getActivity(), CommentActivity.class);
+				getActivity().startActivity(comment);
+				break;
+				
+			case R.id.share_btn:
+				break;
+	        	
+			default:
+				break;
+		
+		}
 	}
 	
 	public class Article{
@@ -165,6 +177,15 @@ public class ArticleContentFragment extends Fragment {
 		public String getContent() {
 			return content;
 		}
+	}
+	
+	private void setButtonColor(View view){
+		Button like_btn = (Button)(view.findViewById(R.id.like_btn));
+		Button comment_btn = (Button)(view.findViewById(R.id.comment_btn));
+		Button share_btn = (Button)(view.findViewById(R.id.share_btn));
+		like_btn.setBackgroundResource(R.drawable.aritcle_btns);
+		comment_btn.setBackgroundResource(R.drawable.aritcle_btns);
+		share_btn.setBackgroundResource(R.drawable.aritcle_btns);
 	}
 	
 
