@@ -1,20 +1,12 @@
 package me.imvoice.app;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import me.imvoice.app.ArticleFragment.myArticleAdapter;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -22,35 +14,20 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class ArticleContentFragment extends Fragment {
 	
-	private int pageNum;
-	private ViewPager pagerView;
-	private ArrayList<Article> articles = new ArrayList<Article>();
-	LayoutInflater inflater;
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.article_content_fragment, container, false);
-		
-//		this.inflater = inflater;
-//		pagerView = (ViewPager)view.findViewById(R.id.article);
 		setButtonColor(view);
+		
 	    return view;
 	}
 	
@@ -69,7 +46,6 @@ public class ArticleContentFragment extends Fragment {
 	
 	public class RetreiveFeedTask extends AsyncTask<String, Void, Void> {
 
-	    private Exception exception;
 	    private Bitmap bitmap = null;
 
 	    protected Void doInBackground(String... urls) {
