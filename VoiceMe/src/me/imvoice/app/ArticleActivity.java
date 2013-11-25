@@ -1,8 +1,5 @@
 package me.imvoice.app;
 
-import java.util.Locale;
-
-import me.imvoice.app.MainActivity.SectionsPagerAdapter;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -27,7 +24,6 @@ import android.view.MenuItem;
 public class ArticleActivity extends Activity {
 	
 	private String title;
-	private String article_title;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +35,6 @@ public class ArticleActivity extends Activity {
 		}
 		catch(Exception e) {
 			title = "Untitled";
-		}
-		
-		try {
-			article_title = getIntent().getExtras().getString("article_title");
-		}
-		catch (Exception e) {
-			article_title = "Untitled";
 		}
 			
 		ViewPager articleViewPager = (ViewPager)findViewById(R.id.article);
