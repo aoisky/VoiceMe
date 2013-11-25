@@ -29,10 +29,10 @@
             android:name="me.imvoice.app.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
-            <!-- <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
         </activity>
         <activity
             android:name="me.imvoice.app.SettingsActivity"
@@ -57,11 +57,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.imvoice.app.MainActivity" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="me.imvoice.app.CommentActivity"
