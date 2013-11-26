@@ -11,7 +11,7 @@ public class SignupDetailsFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_signup_dummy,
+		View rootView = inflater.inflate(R.layout.fragment_signup_details,
 				container, false);
 		return rootView;
 	}
