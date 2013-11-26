@@ -29,6 +29,8 @@ public class ArticleFragment extends ListFragment{
 	private ListView listView;
 	private List<ArticleItem> articleItems;
 	private myArticleAdapter articleAdapter;
+	private boolean loginStatus = false;
+	private boolean showHeadlines = true;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,17 +47,23 @@ public class ArticleFragment extends ListFragment{
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
-	    
-	    ArticleItem article1 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger","Conte Distinguished Lecture Series Begins -- New Mining Techniques Explored and Excavated", "10-25-2013","Graph Optimization Problems in Data Mining will be the first presentation of the 2013-2014 Sam Conte Distinguished Lecture Series presented by Paul M. Van Dooren, professor of mathematical engineering at Catholic University in Louvain at 3:30 p.m. Monday, Oct. 28 in room 1142 of the Lawson Computer Science building.");
-	    ArticleItem article2 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Elizabeth K. Gardner", "Computer Science professors from Purdue lead the organization of the 2013 Splash Conference in Indianapolis","10-23-2013","This year's conference, which focuses on solving problems faced by the software industry, includes ways to improve tools the average person uses daily like smartphones");
-	    ArticleItem article3 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger","IEEE Computer Society Board Names Elisa Bertino Editor-in-Chief of Top International Journal","10-16-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
-	    ArticleItem article4 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad","Hosking Receives Research Awards from Qualcomm, Inc.","10-15-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
-	    ArticleItem article5 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Buster Dunsmore","CS Student Project Receives Entrepreneurship Prototyping Grant","10-13-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
-	    articleItems.add(article1);
-	    articleItems.add(article2);
-	    articleItems.add(article3);
-	    articleItems.add(article4);
-	    articleItems.add(article5);
+	    if(getArguments() != null){
+	    	loginStatus = getArguments().getBoolean("LoginStatus", false);
+	    	showHeadlines = getArguments().getBoolean("isHeadline", true);
+	    }
+	    if(!loginStatus && showHeadlines){
+	    	//TEMPLATE Article items for headlines
+		    ArticleItem article1 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger","Conte Distinguished Lecture Series Begins -- New Mining Techniques Explored and Excavated", "10-25-2013","Graph Optimization Problems in Data Mining will be the first presentation of the 2013-2014 Sam Conte Distinguished Lecture Series presented by Paul M. Van Dooren, professor of mathematical engineering at Catholic University in Louvain at 3:30 p.m. Monday, Oct. 28 in room 1142 of the Lawson Computer Science building.");
+		    ArticleItem article2 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Elizabeth K. Gardner", "Computer Science professors from Purdue lead the organization of the 2013 Splash Conference in Indianapolis","10-23-2013","This year's conference, which focuses on solving problems faced by the software industry, includes ways to improve tools the average person uses daily like smartphones");
+		    ArticleItem article3 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger","IEEE Computer Society Board Names Elisa Bertino Editor-in-Chief of Top International Journal","10-16-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
+		    ArticleItem article4 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad","Hosking Receives Research Awards from Qualcomm, Inc.","10-15-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
+		    ArticleItem article5 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Buster Dunsmore","CS Student Project Receives Entrepreneurship Prototyping Grant","10-13-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
+		    articleItems.add(article1);
+		    articleItems.add(article2);
+		    articleItems.add(article3);
+		    articleItems.add(article4);
+		    articleItems.add(article5);
+	    }
 	    
         articleAdapter = new myArticleAdapter(getActivity(), android.R.id.list, articleItems);
         listView.setAdapter(articleAdapter);
