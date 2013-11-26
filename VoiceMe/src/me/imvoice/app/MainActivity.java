@@ -88,8 +88,8 @@ public class MainActivity extends Activity{
 	private void notifyMsg(NotificationMgr notifyMgr){
 
 		Bundle args = new Bundle();
-		args.putString("title", "Test");
-		args.putString("content", "Test content");
+		args.putString("title", "New Headline");
+		args.putString("content", "You got 3 new articles");
 		args.putInt("type", NotificationMgr.NEW_ARTICLE_NOTIFICATION);
 		int notifyNum = notifyMgr.createNotify(args);
 		notifyMgr.showNotify(notifyNum);
