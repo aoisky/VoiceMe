@@ -8,8 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -112,10 +110,14 @@ public class APIHandler {
 		return null;
 	}
 	
+	/**
+	 * Register a new user
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public static UserInfo registerUser(String username, String password){
-		
-		
-		
+	
 		JSONObject obj = new JSONObject();
 		
 		obj.put("password", password);
@@ -124,14 +126,57 @@ public class APIHandler {
 		
 		String userAuthInfo = obj.toJSONString();
 		Log.d(logTag,"JSON User Register Info: " + userAuthInfo);
-		URL url;
 		
 		String returnInfo = apiConnection("registerUser", userAuthInfo);
 
-		
 		return null;
 		
 	}
+	
+	/**
+	 * Fetch Article from the server
+	 * @param uid
+	 * @param pid
+	 * @return
+	 */
+	public static String fetchArticle(String uid, String pid){
+		JSONObject obj = new JSONObject();
+		
+		obj.put("uid", uid);
+		obj.put("pid", pid);
+		
+		
+		String userAuthInfo = obj.toJSONString();
+		Log.d(logTag,"JSON Fetch Article Info: " + userAuthInfo);
+		
+		String returnInfo = apiConnection("fetch_content", userAuthInfo);
+
+		return returnInfo;
+		
+	}
+	/**
+	 * Fetch comment from the server
+	 * @param uid
+	 * @param pid
+	 * @param cid
+	 * @return
+	 */
+	public static String fetchComment(String uid, String pid, String cid){
+		JSONObject obj = new JSONObject();
+		
+		obj.put("uid", uid);
+		obj.put("pid", pid);
+		obj.put("cid", cid);
+		
+		String userAuthInfo = obj.toJSONString();
+		Log.d(logTag,"JSON Fetch Comment Info: " + userAuthInfo);
+		
+		String returnInfo = apiConnection("fetch_comment", userAuthInfo);
+
+		return returnInfo;
+	}
+	
+	
 	
 	/**
 	 * Utility function
@@ -147,7 +192,12 @@ public class APIHandler {
 		return false;
 	}
 	
-	
+	/**
+	 * Connect to the server
+	 * @param requestMethod
+	 * @param JSONInfo
+	 * @return JSON String
+	 */
 	private static String apiConnection(String requestMethod, String JSONInfo){
 		URL url;
 		try {
@@ -188,13 +238,25 @@ public class APIHandler {
 		}
 		return null;
 	}
+	
+	/**
+	 * Create a new article on the server
+	 * @param user
+	 * @param articleInfo
+	 * @return pid
+	 */
 	public static int createNewArticle(UserInfo user, Bundle articleInfo){
+
+		
+		if(articleInfo == null || user == null){
+			//No article content or no userInfo
+			return -1;
+		}
 		JSONObject contentObject = new JSONObject();
 		String content = articleInfo.getString("content");
 		
-		
-		if(content == null || user == null){
-			//No article content or no userInfo
+		if(content == null){
+			//No content info in the bundle
 			return -1;
 		}
 		
@@ -208,12 +270,43 @@ public class APIHandler {
 		return 0;
 	}
 	
+	
+	/**
+	 * Create new Comment
+	 * @param user
+	 * @param commentInfo
+	 * @return
+	 */
 	public static int createNewComment(UserInfo user, Bundle commentInfo){
+		if(user == null || commentInfo == null){
+			return -1;
+		}
+		String comment = commentInfo.getString("comment");
+		String rid = commentInfo.getString("rid");
+		String pid = commentInfo.getString("pid");
 		
+		if(comment == null || rid == null || pid == null){
+			return -1;
+		}
+		JSONObject commentObject = new JSONObject();
+		
+		commentObject.put("uid", user.getuid());
+		commentObject.put("rid", rid);
+		commentObject.put("pid", pid);
+		commentObject.put("comment", comment);
+		
+		String commentStr = commentObject.toJSONString();
+		Log.d(logTag, "Start posting comment");
+		
+		String returnInfo = apiConnection("post_comment", comment);
 		
 		return 0;
 	}
-	
+	/**
+	 * Save userInfo into preferences
+	 * @param context
+	 * @param userInfo
+	 */
 	public static void saveUserInfo(Context context, UserInfo userInfo){
 
 		SharedPreferences userInfoPref = context.getSharedPreferences(userInfoStr, Context.MODE_PRIVATE);
@@ -237,9 +330,12 @@ public class APIHandler {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 	}
-	
+	/**
+	 * Read userInfo from preferences
+	 * @param context
+	 * @return userInfo
+	 */
 	public static UserInfo readUserInfo(Context context){
 
 		SharedPreferences userInfoPref = context.getSharedPreferences(userInfoStr, Context.MODE_PRIVATE);
