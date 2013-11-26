@@ -98,8 +98,8 @@ public class APIHandler {
 	        if(auth.equals("No such user")){
 	        	Log.d(logTag, "Auth: No such user, try to register an account" );
 	        	loginConnect.disconnect();
+	        	return null;
 	        	
-	        	registerUser(username,password);
 	        }
 	        
 		} catch (IOException e) {
@@ -151,13 +151,13 @@ public class APIHandler {
 	private static String apiConnection(String requestMethod, String JSONInfo){
 		URL url;
 		try {
-			Log.d(logTag, "Start register connection");
+			Log.d(logTag, "Start API connection");
 			url = new URL(authURL);
 		
 			HttpURLConnection registerConnect = (HttpURLConnection)url.openConnection();
 			registerConnect.setReadTimeout(10000 /* milliseconds */);
 			registerConnect.setConnectTimeout(10000 /* milliseconds */);
-			registerConnect.setRequestProperty("METHOD", "registerUser");
+			registerConnect.setRequestProperty("METHOD", requestMethod);
 			registerConnect.setRequestMethod("POST");
 			registerConnect.setDoInput(true);
 			registerConnect.setDoOutput(true);
@@ -181,7 +181,7 @@ public class APIHandler {
 	        
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			Log.d(logTag, "Register Connection Exception");
+			Log.d(logTag, "API Connection Exception");
 			e.printStackTrace();
 		}catch (Exception e){
 			e.printStackTrace();
@@ -248,8 +248,8 @@ public class APIHandler {
 			Bitmap userIcon = BitmapFactory.decodeStream(in);
 			in.close();
 			String userName = userInfoPref.getString("UserName","Not Login");
-			int userAge = userInfoPref.getInt("Age", 0);
-			int uid = userInfoPref.getInt("UID", 0);
+			int userAge = userInfoPref.getInt("Age", -1);
+			int uid = userInfoPref.getInt("UID", -1);
 			String email = userInfoPref.getString("Email", "NONE");
 			String password = userInfoPref.getString("Password", "");
 			UserInfo userInfo = new UserInfo(userName, uid, userIcon, userAge, email, password);
