@@ -45,7 +45,7 @@ public class ArticleContentFragment extends Fragment {
 	    
 	}
 	
-	public class RetreiveFeedTask extends AsyncTask<String, Void, Void> {
+	public class UpdatePicTask extends AsyncTask<String, Void, Void> {
 
 	    private Bitmap bitmap = null;
 
@@ -72,7 +72,7 @@ public class ArticleContentFragment extends Fragment {
 			return null;
 	    }
 
-	    protected void onPostExecute(Void feed) {
+	    protected void onPostExecute(Void in) {
 	    	ImageView picView = (ImageView)getView().findViewById(R.id.article_pic);
 	    	picView.setImageBitmap(bitmap);
 	    }
@@ -95,7 +95,7 @@ public class ArticleContentFragment extends Fragment {
 		
 		String[] urls = new String[1];
 		urls[0] = picUrl;
-		RetreiveFeedTask task = new RetreiveFeedTask();
+		UpdatePicTask task = new UpdatePicTask();
 		task.execute(urls);
 	}
 	
