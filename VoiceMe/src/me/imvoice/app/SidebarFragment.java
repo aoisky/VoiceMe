@@ -59,15 +59,18 @@ public class SidebarFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
 
-	    MenuItem homeMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Home");
-	    MenuItem headlineMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "User");
+	    //MenuItem homeMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Home");
 	    MenuItem newArticleMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "New Article");
+	    MenuItem userMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "User");
+	    MenuItem myArticleMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "My Article");
 	    MenuItem favoriteMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Favorite");
 	    MenuItem otherMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Others");
-	    menuItems.add(homeMenu);
-	    menuItems.add(headlineMenu);
-	    menuItems.add(favoriteMenu);
 	    menuItems.add(newArticleMenu);
+	    //menuItems.add(homeMenu);
+	    menuItems.add(userMenu);
+	    menuItems.add(myArticleMenu);
+	    menuItems.add(favoriteMenu);
+	   
 	    menuItems.add(otherMenu);
 	    
         sidebarAdapter = new mySidebarAdapter(getActivity(), android.R.id.list, menuItems);
@@ -79,7 +82,7 @@ public class SidebarFragment extends ListFragment {
 					long arg3) {
 
 				switch(itemInt){
-					case 0: //Home page
+					case 0: //New article page
 					
 					break;
 				
@@ -92,11 +95,11 @@ public class SidebarFragment extends ListFragment {
 						startActivity(userInfoIntent);
 					break;
 					
-					case 2:  //Favorite page
+					case 2:  //My Article page
 						
 					break;
 					
-					case 3:  //New Article page
+					case 3:  //Favorite page
 						
 					break;
 					
