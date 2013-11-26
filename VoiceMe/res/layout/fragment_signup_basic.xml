@@ -21,7 +21,8 @@
         android:id="@+id/signup_nickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dip" >
+        android:layout_marginTop="2dip"
+        android:inputType="text">"
 
     </EditText>
     
