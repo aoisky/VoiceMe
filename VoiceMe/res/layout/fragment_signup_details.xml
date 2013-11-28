@@ -66,4 +66,15 @@
 	        android:layout_height="wrap_content"
 	        android:text="Male" />
 	</RadioGroup>
+
+    <Button
+        android:id="@+id/signup_button_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:background="@color/main_btn_clr"
+        android:textColor="@android:color/white"
+        android:text="Register Account" />
+
 </LinearLayout>

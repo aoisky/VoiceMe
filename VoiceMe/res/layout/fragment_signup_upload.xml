@@ -28,10 +28,12 @@
     
     <Button
         android:id="@+id/signup_upload_button"
-        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cick here to choose an user icon">
+        android:layout_gravity="center"
+        android:background="@color/main_btn_clr"
+        android:text="Cick here to choose an user icon" >
+
     </Button>
     
     
