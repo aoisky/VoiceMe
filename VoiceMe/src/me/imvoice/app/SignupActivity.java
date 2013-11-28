@@ -92,6 +92,10 @@ public class SignupActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public int registerUser(){
+		return -1;
+	}
+	
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
