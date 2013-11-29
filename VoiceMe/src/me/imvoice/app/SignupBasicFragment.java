@@ -2,6 +2,8 @@ package me.imvoice.app;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +11,11 @@ import android.widget.EditText;
 
 public class SignupBasicFragment extends Fragment{
 
-	private String email;
-	private String password;
-	private String nickname;
+	private String email = null;
+	private String password = null;
+	private String confirmPassword = null;
 	
 	private EditText emailAddress;
-	private EditText nickName;
 	private EditText passwordEdit;
 	private EditText passwordConfirm;
 
@@ -30,7 +31,6 @@ public class SignupBasicFragment extends Fragment{
 			password = getArguments().getString("password");
 		}
 		emailAddress = (EditText) rootView.findViewById(R.id.signup_email);
-		nickName = (EditText) rootView.findViewById(R.id.signup_nickname);
 		passwordEdit = (EditText) rootView.findViewById(R.id.signup_password);
 		passwordConfirm = (EditText) rootView.findViewById(R.id.signup_confirmPassword);
 		
@@ -41,7 +41,69 @@ public class SignupBasicFragment extends Fragment{
 		if(password != null){
 			passwordEdit.setText(password);
 		}
+
+		emailAddress.addTextChangedListener(new TextWatcher(){
+
+			@Override
+			public void afterTextChanged(Editable edit) {
+				// TODO Auto-generated method stub
+				email = edit.toString();
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {}
+		});
 		
+		passwordEdit.addTextChangedListener(new TextWatcher(){
+
+			@Override
+			public void afterTextChanged(Editable edit) {
+				// TODO Auto-generated method stub
+				password = edit.toString();
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {}
+		});
+		
+		passwordConfirm.addTextChangedListener(new TextWatcher(){
+
+			@Override
+			public void afterTextChanged(Editable edit) {
+				// TODO Auto-generated method stub
+				confirmPassword = edit.toString();
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {}
+		});
 		return rootView;
+	}
+	
+	public String getEmail(){
+		return email;
+	}
+	
+	public String getPassword(){
+		return password;
+	}
+	
+	public String getConfirmPassword(){
+		return confirmPassword;
 	}
 }
