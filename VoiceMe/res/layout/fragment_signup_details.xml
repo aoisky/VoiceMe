@@ -51,9 +51,10 @@
         android:text="Gender">
 	</TextView>
     <RadioGroup
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    	android:id="@+id/signup_gender_radio_group"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
 	    <RadioButton
 	        android:id="@+id/radioButtonFemale"
 	        android:layout_width="wrap_content"
