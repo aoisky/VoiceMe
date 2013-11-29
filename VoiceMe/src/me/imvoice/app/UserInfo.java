@@ -21,14 +21,16 @@ public class UserInfo{
 	private int age;
 	private String email;
 	private String md5Password;
+	private boolean gender;
 	
-	public UserInfo(String userName, int uid, Bitmap userAvatar, int age, String email, String md5Password){
+	public UserInfo(String userName, int uid, Bitmap userAvatar, int age, String email, String md5Password, boolean gender){
 		this.uid = uid;
 		this.userName = userName;
 		this.userAvatar = userAvatar;
 		this.age = age;
 		this.email = email;
 		this.md5Password = md5Password;
+		this.gender = gender;
 	}
 	
 	public int getuid(){
@@ -55,5 +57,8 @@ public class UserInfo{
 		return md5Password;
 	}
 
+	public boolean getGender(){
+		return gender;
+	}
 
 }
