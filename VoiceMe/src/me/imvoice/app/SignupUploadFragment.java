@@ -20,6 +20,7 @@ public class SignupUploadFragment extends Fragment implements OnClickListener{
 	
 	private static final int PICK_IMAGE = 1;
 	
+	private boolean iconSetFlag = false;
 	private Button pickImageButton;
 	private ImageView userIconView;
 	
@@ -42,6 +43,9 @@ public class SignupUploadFragment extends Fragment implements OnClickListener{
 		startActivityForResult(pickPhotoIntent, PICK_IMAGE);    
 	}
 	
+	public boolean isIconSet(){
+		return iconSetFlag;
+	}
 	
 	public void onActivityResult(int requestCode, int resultCode, 
 		       Intent imageReturnedIntent) {
@@ -61,9 +65,10 @@ public class SignupUploadFragment extends Fragment implements OnClickListener{
 		            String filePath = cursor.getString(columnIndex);
 		            cursor.close();
 
-
+		            
 		            Bitmap selectedImageBitmap = BitmapFactory.decodeFile(filePath);
 		            userIconView.setImageBitmap(selectedImageBitmap);
+		            iconSetFlag = true;
 		        }
 		    }
 		}
