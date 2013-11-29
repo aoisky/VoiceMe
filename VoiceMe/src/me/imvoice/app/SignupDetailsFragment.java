@@ -12,9 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class SignupDetailsFragment extends Fragment implements OnClickListener{
+	
+	private EditText nickNameEdit;
+	private EditText ageEdit;
+	private RadioGroup genderRadio;
 	
 	private Button registerBtn;
 	@Override
@@ -23,6 +28,9 @@ public class SignupDetailsFragment extends Fragment implements OnClickListener{
 		View rootView = inflater.inflate(R.layout.fragment_signup_details,
 				container, false);
 		registerBtn = (Button)rootView.findViewById(R.id.signup_button_register);
+		nickNameEdit = (EditText) rootView.findViewById(R.id.signup_nickname);
+		ageEdit = (EditText) rootView.findViewById(R.id.signup_age);
+		genderRadio = (RadioGroup) rootView.findViewById(R.id.signup_gender_radio_group);
 		registerBtn.setOnClickListener(this);
 		return rootView;
 	}
@@ -35,7 +43,7 @@ public class SignupDetailsFragment extends Fragment implements OnClickListener{
 		SignupBasicFragment basicFragment = (SignupBasicFragment)viewPager.getAdapter().instantiateItem(viewPager, 0);
 	    SignupUploadFragment uploadFragment = (SignupUploadFragment)viewPager.getAdapter().instantiateItem(viewPager, 1);
 		
-		if(basicFragment != null){
+		
 			String email = basicFragment.getEmail();
 			String password = basicFragment.getPassword();
 			String confirmPassword = basicFragment.getConfirmPassword();
@@ -63,7 +71,7 @@ public class SignupDetailsFragment extends Fragment implements OnClickListener{
 				passwordEdit.requestFocus();
 				return;
 			}
-		}
+		
 		
 		if(!uploadFragment.isIconSet()){
 			viewPager.setCurrentItem(1);
@@ -75,8 +83,36 @@ public class SignupDetailsFragment extends Fragment implements OnClickListener{
 		
 		Bitmap userIconBitmap = ((BitmapDrawable)userIcon.getDrawable()).getBitmap();
 
+		if(nickNameEdit.getText().toString().equals("")){
+			nickNameEdit.setError("Invalid nickname");
+			nickNameEdit.requestFocus();
+			return;
+		}
+		
+		if(ageEdit.getText().toString().equals("")){
+			ageEdit.setError("Invalid Age");
+			ageEdit.requestFocus();
+			return;
+		}
+		
+		if(genderRadio.getCheckedRadioButtonId() == -1){
+			Toast.makeText(getActivity(), "You need to choose a gender", Toast.LENGTH_SHORT).show();
+			genderRadio.requestFocus();
+			return;
+		}
+		
+		int genderId = genderRadio.getCheckedRadioButtonId();
+		boolean gender = false; // False: male True: female
 
-		//getActivity().finish();
+		if(genderId == R.id.radioButtonFemale){
+			gender = true;
+		}
+		
+		
+		UserInfo userInfo = new UserInfo(nickNameEdit.getText().toString(), 1, userIconBitmap, Integer.parseInt(ageEdit.getText().toString()),email , password, gender);
+		APIHandler.saveUserInfo(getActivity(), userInfo);
+		Toast.makeText(getActivity(), "Register successful", Toast.LENGTH_SHORT).show();
+		getActivity().finish();
 		
 	}
 }
