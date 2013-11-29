@@ -36,8 +36,8 @@ public class SignupActivity extends Activity {
 	 */
 	ViewPager mViewPager;
 	
-	private String fragmentTagBasic;
-	private String fragmentTagUpload;
+	private Fragment fragmentTagBasic;
+	private Fragment fragmentTagUpload;
 	private String fragmentTagDetail;
 	
 	private Bundle signupBundle = null;
@@ -62,7 +62,7 @@ public class SignupActivity extends Activity {
 				getFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (ViewPager) findViewById(R.id.pager_signup);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
@@ -96,6 +96,14 @@ public class SignupActivity extends Activity {
 		return -1;
 	}
 	
+	public Fragment getBasicFragment(){
+		return fragmentTagBasic;
+	}
+	
+	public Fragment getUploadFragment(){
+		return fragmentTagUpload;
+	}
+	
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
@@ -114,9 +122,12 @@ public class SignupActivity extends Activity {
 			case 0:
 				Fragment signupBasicFragment = new SignupBasicFragment();
 				signupBasicFragment.setArguments(signupBundle);
+				fragmentTagBasic = signupBasicFragment;
 				return signupBasicFragment;
 			
 			case 1:
+				Fragment signupUploadFragment = new SignupUploadFragment();
+				fragmentTagUpload = signupUploadFragment;
 				return new SignupUploadFragment();
 				
 			case 2:
