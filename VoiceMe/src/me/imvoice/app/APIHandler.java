@@ -247,7 +247,6 @@ public class APIHandler {
 	 */
 	public static int createNewArticle(UserInfo user, Bundle articleInfo){
 
-		
 		if(articleInfo == null || user == null){
 			//No article content or no userInfo
 			return -1;
@@ -316,6 +315,7 @@ public class APIHandler {
 		editor.putInt("Age", userInfo.getAge());
 		editor.putString("Email", userInfo.getEmail());
 		editor.putString("Password", userInfo.getmd5Password());
+		editor.putBoolean("Gender", userInfo.getGender());
 		editor.apply();
 		try {
 			FileOutputStream out = context.openFileOutput("UserAvatar.PNG", Context.MODE_PRIVATE);
@@ -348,7 +348,8 @@ public class APIHandler {
 			int uid = userInfoPref.getInt("UID", -1);
 			String email = userInfoPref.getString("Email", "NONE");
 			String password = userInfoPref.getString("Password", "");
-			UserInfo userInfo = new UserInfo(userName, uid, userIcon, userAge, email, password);
+			boolean gender = userInfoPref.getBoolean("Gender", false);
+			UserInfo userInfo = new UserInfo(userName, uid, userIcon, userAge, email, password, gender);
 			return userInfo;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
