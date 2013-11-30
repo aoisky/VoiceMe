@@ -15,7 +15,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-
+/**
+ * Signup activity for upload fragment
+ * @author Yudong Yang
+ *
+ */
 public class SignupUploadFragment extends Fragment implements OnClickListener{
 	
 	private static final int PICK_IMAGE = 1;

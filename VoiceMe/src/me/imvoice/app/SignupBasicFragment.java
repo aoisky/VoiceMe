@@ -8,7 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
+/**
+ * Signup Fragment for basic information
+ * @author Yudong Yang
+ *
+ */
 public class SignupBasicFragment extends Fragment{
 
 	private String email = null;

@@ -14,7 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
+/**
+ * Signup fragment for user detail information
+ * @author Yudong Yang
+ *
+ */
 public class SignupDetailsFragment extends Fragment implements OnClickListener{
 	
 	private EditText nickNameEdit;

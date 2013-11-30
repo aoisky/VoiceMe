@@ -19,6 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * Signup activity for sign up an account
+ * @author Yudong Yang
+ *
+ */
 public class SignupActivity extends Activity {
 
 	/**
