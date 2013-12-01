@@ -64,18 +64,20 @@ public class SidebarFragment extends ListFragment {
 	    super.onActivityCreated(savedInstanceState);
 
 	    //MenuItem homeMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Home");
-	    MenuItem newArticleMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "New Article");
-	    MenuItem userMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "User");
-	    MenuItem myArticleMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "My Article");
-	    MenuItem favoriteMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Favorite");
-	    MenuItem otherMenu = new MenuItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Others");
+	    MenuItem newArticleMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_edit), "New Article");
+	    MenuItem userMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_person), "User");
+	    MenuItem myArticleMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_unread), "My Article");
+	    MenuItem favoriteMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_favorite), "Favorite");
+	    MenuItem helpMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_help), "Help");
+	    MenuItem aboutMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_about), "About");
 	    menuItems.add(newArticleMenu);
 	    //menuItems.add(homeMenu);
 	    menuItems.add(userMenu);
 	    menuItems.add(myArticleMenu);
 	    menuItems.add(favoriteMenu);
 	   
-	    menuItems.add(otherMenu);
+	    menuItems.add(helpMenu);
+	    menuItems.add(aboutMenu);
 	    
         sidebarAdapter = new mySidebarAdapter(getActivity(), android.R.id.list, menuItems);
         listView.setAdapter(sidebarAdapter);
