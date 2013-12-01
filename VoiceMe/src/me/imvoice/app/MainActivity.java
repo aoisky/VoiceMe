@@ -127,10 +127,18 @@ public class MainActivity extends Activity{
 			switch(position){
 				//Add different articles for different sections, now it's just show one article fragment
 				case 0:
-					return new ArticleFragment();
+					ArticleFragment headlineFragment = new ArticleFragment();
+					Bundle bundle = new Bundle();
+					bundle.putBoolean("isHeadline", true);
+					headlineFragment.setArguments(bundle);
+					return headlineFragment;
 				
 				case 1:
-					return new ArticleFragment();
+					ArticleFragment friendFragment = new ArticleFragment();
+					Bundle friendbundle = new Bundle();
+					friendbundle.putBoolean("isHeadline", false);
+					friendFragment.setArguments(friendbundle);
+					return friendFragment;
 					
 				case 2:
 					return new ArticleFragment();

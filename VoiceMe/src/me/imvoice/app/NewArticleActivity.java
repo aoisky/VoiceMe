@@ -6,16 +6,22 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 
 public class NewArticleActivity extends Activity {
 
+	private EditText articleTitle;
+	private EditText articleContent;
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_article);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		articleTitle = (EditText) findViewById(R.id.editTitle);
+		articleContent = (EditText) findViewById(R.id.editContent);
 	}
 
 	/**
@@ -51,6 +57,12 @@ public class NewArticleActivity extends Activity {
 			return true;
 			
 	    case R.id.action_article_send:
+	    	SQLHandler sql = new SQLHandler(this);
+	    	Bundle bundle = new Bundle();
+	    	bundle.putLong(SQLHandler.USER_ID, 1);
+	    	bundle.putString(SQLHandler.ARTICLE_TITLE, articleTitle.getText().toString());
+	    	bundle.putString(SQLHandler.ARTICLE_CONTENT, articleContent.getText().toString());
+	    	sql.addArticle(bundle);
 	    	
 	    	this.finish();
 	    	return true;

@@ -115,6 +115,8 @@ public class SignupDetailsFragment extends Fragment implements OnClickListener{
 		
 		UserInfo userInfo = new UserInfo(nickNameEdit.getText().toString(), 1, userIconBitmap, Integer.parseInt(ageEdit.getText().toString()),email , password, gender);
 		APIHandler.saveUserInfo(getActivity(), userInfo);
+		SQLHandler sql = new SQLHandler(getActivity());
+		sql.onUpgrade(sql.getWritableDatabase(), 1, 2);
 		Toast.makeText(getActivity(), "Register successful", Toast.LENGTH_SHORT).show();
 		getActivity().finish();
 		

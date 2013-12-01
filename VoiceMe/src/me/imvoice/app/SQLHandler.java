@@ -35,7 +35,7 @@ public class SQLHandler extends SQLiteOpenHelper{
 	public static final String USER_AVATAR_PATH = "useravatarpath";
 	public static final String USER_TIMESTAMP = "user_timestamp";
 	
-	public static final String ARTICLE_ID = "_id";
+	public static final String ARTICLE_ID = "articleid";
 	public static final String ARTICLE_TITLE = "articletitle";
 	public static final String ARTICLE_CONTENT = "articlecontent";
 	public static final String ARTICLE_TIMESTAMP = "article_timestamp";
