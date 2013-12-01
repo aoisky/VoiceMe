@@ -2,6 +2,8 @@ package me.imvoice.app;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
@@ -22,7 +24,9 @@ public class NewArticleActivity extends Activity {
 	private void setupActionBar() {
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		ColorDrawable background = new ColorDrawable(Color.parseColor("#00A9FF"));
+		background.setAlpha(150);
+		getActionBar().setBackgroundDrawable(background);
 	}
 
 	@Override
@@ -45,8 +49,14 @@ public class NewArticleActivity extends Activity {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+			
+	    case R.id.action_article_send:
+	    	
+	    	this.finish();
+	    	return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 
 }

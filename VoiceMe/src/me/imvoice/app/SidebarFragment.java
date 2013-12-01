@@ -83,15 +83,16 @@ public class SidebarFragment extends ListFragment {
 
 				switch(itemInt){
 					case 0: //New article page
-					
+					Intent newArticleIntent = new Intent(getActivity(), NewArticleActivity.class);
+					startActivity(newArticleIntent);
 					break;
 				
 					case 1: //User Info page
 						Intent userInfoIntent = new Intent(getActivity(), UserInfoActivity.class);
 						//Create a user info for testing
-						Bitmap userIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-						UserInfo userInfo = new UserInfo("Test User", 1, userIcon, 20, "test@purdue.edu", "Password" );
-						APIHandler.saveUserInfo(getActivity(), userInfo);
+						//Bitmap userIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+						//UserInfo userInfo = new UserInfo("Test User", 1, userIcon, 20, "test@purdue.edu", "Password", false );
+						//APIHandler.saveUserInfo(getActivity(), userInfo);
 						startActivity(userInfoIntent);
 					break;
 					
