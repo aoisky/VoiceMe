@@ -73,6 +73,7 @@ public class ArticleContentFragment extends Fragment {
 	    }
 
 	    protected void onPostExecute(Void in) {
+	    	if(getView() == null) return;
 	    	ImageView picView = (ImageView)getView().findViewById(R.id.article_pic);
 	    	picView.setImageBitmap(bitmap);
 	    }
