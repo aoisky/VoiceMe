@@ -6,7 +6,10 @@ package me.imvoice.app;
  */
 
 
+import java.util.List;
 import java.util.Locale;
+
+import me.imvoice.app.ArticleFragment.myBundleArticleAdapter;
 
 
 import android.os.Bundle;
@@ -20,8 +23,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 public class MainActivity extends Activity{
@@ -42,7 +48,7 @@ public class MainActivity extends Activity{
 		mainViewPager = (ViewPager)findViewById(R.id.mainpager);
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 		mainViewPager.setAdapter(mSectionsPagerAdapter);
-		
+		mSectionsPagerAdapter.notifyDataSetChanged();
 		//Default articles fragment to show on the main
 		//setDefaultArticles();
 		//Usage of notificationMgr
@@ -95,6 +101,26 @@ public class MainActivity extends Activity{
 		notifyMgr.showNotify(notifyNum);
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+				if(requestCode == SidebarFragment.POST_ARTICLE){
+					if(resultCode == RESULT_OK){
+					Log.d("MainActivity", "OnResult");
+		    		  ViewPager viewPager = (ViewPager) findViewById(R.id.mainpager);
+		    		  Fragment friendFragment = (Fragment)viewPager.getAdapter().instantiateItem(viewPager, 1);
+		    		  ListView listView = (ListView) friendFragment.getView().findViewById(android.R.id.list);
+		  	    	SQLHandler sql = new SQLHandler(this);
+			    	List<Bundle> allArticles = sql.getAllArticlesByUserId(1);
+			    	
+			    	sql.close();
+			    	ArticleFragment.myBundleArticleAdapter adapter = (ArticleFragment.myBundleArticleAdapter)listView.getAdapter();
+			    	adapter.clear();
+			    	adapter.addAll(allArticles);
+			    	adapter.notifyDataSetChanged();
+					}
+				}
+
+	}
 	
 	private void setActionBar(ActionBar actionBar){
 		actionBar.setTitle("VoiceMe");

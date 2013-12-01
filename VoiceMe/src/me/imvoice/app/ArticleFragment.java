@@ -91,8 +91,10 @@ public class ArticleFragment extends ListFragment{
 	    	
 	    	SQLHandler sql = new SQLHandler(getActivity());
 	    	List<Bundle> allArticles = sql.getAllArticlesByUserId(1);
+	    	sql.close();
 	        bundleArticleAdapter = new myBundleArticleAdapter(getActivity(), android.R.id.list, allArticles);
 	        listView.setAdapter(bundleArticleAdapter);
+	        bundleArticleAdapter.notifyDataSetChanged();
 	        
 	    }
 	}

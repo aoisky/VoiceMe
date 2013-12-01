@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -37,6 +39,8 @@ public class SidebarFragment extends ListFragment {
 	private ListView listView;
 	private List<MenuItem> menuItems;
 	private mySidebarAdapter sidebarAdapter;
+	
+	public static final int POST_ARTICLE = 101;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,7 +88,7 @@ public class SidebarFragment extends ListFragment {
 				switch(itemInt){
 					case 0: //New article page
 					Intent newArticleIntent = new Intent(getActivity(), NewArticleActivity.class);
-					startActivity(newArticleIntent);
+					getActivity().startActivityForResult(newArticleIntent, POST_ARTICLE);
 					break;
 				
 					case 1: //User Info page
@@ -113,6 +117,7 @@ public class SidebarFragment extends ListFragment {
         });
 	}
 	
+
 	public class MenuItem{
 		private Drawable menuDrawable;
 		private CharSequence menuName;

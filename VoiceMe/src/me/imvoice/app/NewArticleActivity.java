@@ -63,7 +63,9 @@ public class NewArticleActivity extends Activity {
 	    	bundle.putString(SQLHandler.ARTICLE_TITLE, articleTitle.getText().toString());
 	    	bundle.putString(SQLHandler.ARTICLE_CONTENT, articleContent.getText().toString());
 	    	sql.addArticle(bundle);
-	    	
+	    	sql.close();
+	    	sql = null;
+	    	this.setResult(RESULT_OK);
 	    	this.finish();
 	    	return true;
 		}
