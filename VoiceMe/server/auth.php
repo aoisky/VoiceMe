@@ -28,7 +28,7 @@
         $body == $_POST;
     }
     
-    /**
+    /*
     	Incoming arguments:	$body['user_username'], $body['user_password']
     	Return value(key:variable):		result:$success, uid:$uid, user_login:$user_login,
     									avatar_url:$avatar_url, user_email:$user_email
@@ -41,7 +41,7 @@
         $stmt->bind_param('s', $body['user_username']);
         
         $stmt->execute();
-        //$stmt->store_result();
+        $stmt->store_result();
         $stmt -> bind_result($user_login,$uid,$user_email,$user_pass);
         // Base-2 logarithm of the iteration count used for password stretching
         $hash_cost_log2 = 8;
@@ -81,7 +81,7 @@
 
         echo json_encode($results);
     }
-    /**
+    /*
     	Incoming arguments:	$body['user_username'], $body['user_email'], $body['user_password'],
     						 $body['user_firstname'], $body['user_lastname'], $body['user_mobile'],
             				$body['user_age'], $body['user_des'],$body['user_gender']
@@ -164,7 +164,7 @@
         echo json_encode($results);
         
     }
-    /**
+    /*
     	Incoming arguments:	$body['user_searchVal']
     	Return value(key:variable):		result:$success
     */

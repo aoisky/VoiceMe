@@ -25,7 +25,7 @@
         die('Unable to connect to database [' . $db->connect_error . ']');
     }   
      
-    /**
+    /*
     	Incoming arguments:	$body['uid'], $body['post_content']
     	Return value(key:variable):		result:$success
     */
@@ -64,7 +64,7 @@
         
         echo json_encode($results);
     }
-    /**
+    /*
         Incoming arguments: $body['uid'], $body['comment'], $body['rid'],$body['pid']
         Return value(key:variable):     result:$success
     */
@@ -72,8 +72,8 @@
     
         $stmt = $db->prepare('INSERT INTO  `comment` (`cid`, `pid`, `rid` ,`comment` ,`uid`,`reply_count`,
                                             `comment_count`, `creation_time`, `last_update_time`)
-                                             VALUES (NULL , ?, ?, ?, 0, 0, now(), NULL) ');
-        $stmt->bind_param('sss', $body['rid'], $body['pid'], $body['comment'],$body['uid']);
+                                             VALUES (NULL , ?, ?, ?, ?, 0, 0, now(), NULL) ');
+        $stmt->bind_param('ssss', $body['pid'], $body['rid'], $body['comment'],$body['uid']);
         if($stmt->execute()){
             $stmt = $db->prepare('SELECT `cid`,`comment`,`rid` FROM  `comment` WHERE `uid` = ? ORDER BY `creation_time` LIMIT 1');
             $stmt->bind_param('s', $body['uid']);
@@ -90,7 +90,7 @@
             if($body['comment'] === $post_comment){
                 $stmt = $db->prepare('INSERT INTO  `user_comment_list` (`uid`, `r_uid`, `rid`, `cid`)
                                              VALUES (?, ?, ?, ?) ');
-                $stmt->bind_param('ss', $body['uid'], $r_uid,$body['rid'],$cid);
+                $stmt->bind_param('ssss', $body['uid'], $r_uid,$body['rid'],$cid);
                 if($stmt->execute()){
                     $success = "Success";
                 }
@@ -108,7 +108,7 @@
         
         echo json_encode($results);
     }
-    /**
+    /*
         Incoming arguments: $body['uid'], $body['pid']
         Return value(key:variable):     result:$success post_content:$post_content share_count:$share_count like_count:$like_count comment_count:$comment_count creation_time:$creation_time
     */
@@ -137,7 +137,7 @@
         
         echo json_encode($results);
     }
-    /**
+    /*
         Incoming arguments: $body['uid'], $body['cid'], $body['pid']
         Return value(key:variable):     result:$success comment:$comment rid:$rid reply_count:reply_count comment_count:comment_count creation_time:creation_time
     */
@@ -155,7 +155,7 @@
             $stmt->fetch();
             if($cid !== NULL){
                 $stmt = $db->prepare('SELECT `uid` FROM  `comment` WHERE `cid` = ? LIMIT 1');
-                $stmt->bind_param('ss', $cid);
+                $stmt->bind_param('s', $cid);
                 $stmt->execute();
                 $stmt -> bind_result($r_uid);
                 $stmt->fetch();
@@ -169,6 +169,51 @@
             
         //}
         $results[] = array('result'=>$success,'comment'=>$comment,'rid'=>$rid,'reply_count'=>reply_count,'comment_count'=>comment_count,'creation_time'=>creation_time);
+        $stmt -> close();
+        $db->close();
+        
+        echo json_encode($results);
+    }
+    /*
+        Incoming arguments: $body['uid'], $body['pid']
+        Return value(key:variable):     result:$success
+    */
+    else if ($_SERVER['HTTP_METHOD'] === 'post_like'){
+    
+        $stmt = $db->prepare('INSERT INTO  `user_like_list` (`uid`, `pid`, `creation_time`)
+                                             VALUES (?, ?, now()) ');
+        $stmt->bind_param('ss', $body['uid'], $body['pid']);
+        if($stmt->execute()){
+            $success = "Success";
+        }
+        else{
+            $success = "Failed";
+        }
+        $results[] = array('result'=>$success);
+        $stmt -> close();
+        $db->close();
+        
+        echo json_encode($results);
+    }
+    /*
+    	Return an array of pids
+        Incoming arguments: $body['uid']
+        Return value(key:variable):     pids:$pids
+    */
+    else if ($_SERVER['HTTP_METHOD'] === 'fetch_like'){
+    
+        $pids = array();
+        $stmt = $db->prepare('SELECT `pid` FROM  `user_like_list` WHERE `uid` = ? ORDER BY `creation_time` LIMIT 1000');
+        $stmt->bind_param('s', $body['uid']);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt -> bind_result($pid);
+        while($stmt->fetch()){
+        	$pids[] = $pid;
+        	$success = "Success";
+        }
+    		  
+        $results[] = array('pids'=>$pids);
         $stmt -> close();
         $db->close();
         
