@@ -82,6 +82,70 @@
         echo json_encode($results);
     }
     /*
+        Incoming arguments: $body['user_username'], $body['user_password']
+        Return value(key:variable):     result:$success, uid:$uid, user_login:$user_login,
+                                        avatar_url:$avatar_url, user_email:$user_email, 
+                                        firstname:$firstname, lastname:$lastname, mobile:$mobile,
+                                        age:$age, description:$description, gender:$gender,
+                                        user_level:$user_level, user_status:$user_status
+    */
+    else if ($_SERVER['HTTP_METHOD'] === 'fetch_profile'){
+        
+        
+        
+        $stmt = $db->prepare('SELECT `user_login`,`uid`,`user_email`,`user_pass` FROM `user` WHERE `user_login` = ?');
+        $stmt->bind_param('s', $body['user_username']);
+        
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt -> bind_result($user_login,$uid,$user_email,$user_pass);
+        // Base-2 logarithm of the iteration count used for password stretching
+        $hash_cost_log2 = 8;
+        // Do we require the hashes to be portable to older systems (less secure)?
+        $hash_portable = FALSE;
+        $hasher = new PasswordHash($hash_cost_log2, $hash_portable);
+        $success='No such user';
+
+        while($stmt -> fetch()){
+            if ($hasher->CheckPassword($body['user_password'], $user_pass)) { //$hash is the hash retrieved from the DB
+                $stmt = $db->prepare('SELECT `firstname`,`lastname`,`mobile`,`age`,`description`,`gender`,`user_level`,`user_status` FROM `user_profile` WHERE `uid` = ?');
+                $stmt->bind_param('s', $uid);
+                
+                $stmt->execute();
+                $stmt->store_result();
+                stmt -> bind_result($firstname,$lastname,$mobile,$age,$description,$gender,$user_level,$user_status);
+                $success='Authentication succeeded';
+                break;
+            } else {
+                $success = 'Authentication failed';
+            }
+        }
+        if($success==='Authentication succeeded'){
+            $stmt1 = $db->prepare('SELECT `avatar_url` FROM  `user_avatar` WHERE `uid`=?');
+            $stmt1->bind_param('s', $uid);
+            $stmt1->execute();
+            $stmt1->store_result();
+            $stmt1 -> bind_result($avatar_url);
+            $stmt1->fetch();
+            $stmt1 -> close();
+            if(!$avatar_url){
+                $avatar=get_avatar( $body['user_username'], 96 );
+                preg_match("/src='(.*?)'/i", $avatar, $avatar_url1);
+                $avatar_url=$avatar_url1[1];
+            }
+            $results[] = array('auth'=>$success,'user_login'=>$user_login, 'uid'=>$uid, 'avatar_url'=>$avatar_url,
+                        'user_email'=>$user_email,'firstname'=>$firstname,'lastname'=>$lastname,'mobile'=>$mobile,
+                        'age'=>$age,'description'=>$description,'gender'=>$gender,'user_level'=>$user_level,'user_status'=>$user_status);
+        }
+        else {
+            $results[] = array('auth'=>$success);
+        }
+        $stmt -> close();
+        $db->close();
+
+        echo json_encode($results);
+    }
+    /*
     	Incoming arguments:	$body['user_username'], $body['user_email'], $body['user_password'],
     						 $body['user_firstname'], $body['user_lastname'], $body['user_mobile'],
             				$body['user_age'], $body['user_des'],$body['user_gender']
