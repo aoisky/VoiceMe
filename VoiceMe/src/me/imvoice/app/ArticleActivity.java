@@ -24,7 +24,14 @@ import android.view.View;
 
 public class ArticleActivity extends Activity {
 	
+	public static final String ARTICLE_TITLE = "articleTitle";
+	public static final String ARTICLE_CONTENT = "articleContent";
+	public static final String PIC_URL = "picUrl";
+	
 	private String title;
+	private String articleTitle = null;
+	private String articleContent = null;
+	
 	private ArticleContentFragment fragment;
 	
 	@Override
@@ -34,9 +41,11 @@ public class ArticleActivity extends Activity {
 		
 		try {
 			title = getIntent().getExtras().getString("title");
+			articleTitle = getIntent().getExtras().getString(ARTICLE_TITLE);
+			articleContent = getIntent().getExtras().getString(ARTICLE_CONTENT);
 		}
 		catch(Exception e) {
-			title = "Untitled";
+			title = "Article page";
 		}
 			
 		ViewPager articleViewPager = (ViewPager)findViewById(R.id.article);
@@ -57,12 +66,22 @@ public class ArticleActivity extends Activity {
 		@Override
 		public Fragment getItem(int position) {
 			fragment = new ArticleContentFragment();
+			Bundle bundle = new Bundle();
+			if(articleTitle != null){
+				bundle.putString(ARTICLE_TITLE, articleTitle);
+			}
+			
+			if(articleContent != null){
+				bundle.putString(ARTICLE_CONTENT, articleContent);
+			}
+			
+			fragment.setArguments(bundle);
 			return fragment;
 		}
 
 		@Override
 		public int getCount() {
-			return 3;
+			return 1;
 		}
 	}
 	

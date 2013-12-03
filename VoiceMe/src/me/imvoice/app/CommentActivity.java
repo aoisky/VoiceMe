@@ -25,8 +25,6 @@ public class CommentActivity extends Activity {
 	// Assume using articleID to fetch comments of a specific article.
 	// UserInfo used to add comment.
 	// should be passed by ArticleActivity.
-	private int articleID;
-	private UserInfo userInfo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

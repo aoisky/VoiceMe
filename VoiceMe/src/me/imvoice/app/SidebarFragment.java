@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -110,8 +112,12 @@ public class SidebarFragment extends ListFragment {
 						
 					break;
 					
-					case 4: //Other page
+					case 4: //Help page
 						
+					break;
+					
+					case 5: //About page
+						showAbout();
 					break;
 				}
 			}
@@ -119,6 +125,18 @@ public class SidebarFragment extends ListFragment {
         });
 	}
 	
+	private void showAbout(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		  builder.setMessage("VoiceMe Version 1.0 Beta\n")
+		  .setTitle("About Us")
+		  .setCancelable(false)
+		  .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int id) { }
+      });
+
+		  AlertDialog alert = builder.create();
+		  alert.show();
+	}
 
 	public class MenuItem{
 		private Drawable menuDrawable;

@@ -25,7 +25,7 @@ import android.widget.TextView;
  * @author Yudong Yang
  *
  */
-public class ArticleFragment extends ListFragment{
+public class ArticleFragment extends ListFragment implements OnItemClickListener{
 
 	private ListView listView;
 	private List<ArticleItem> articleItems;
@@ -69,24 +69,8 @@ public class ArticleFragment extends ListFragment{
 	    
         articleAdapter = new myArticleAdapter(getActivity(), android.R.id.list, articleItems);
         listView.setAdapter(articleAdapter);
-        listView.setOnItemClickListener(new OnItemClickListener(){
+        listView.setOnItemClickListener(this);
 
-			@Override
-			public void onItemClick(AdapterView<?> adapter, View view, int itemInt,
-					long myLong) {
-				switch(itemInt){
-					//Article activity for testing
-					case 0:
-					Intent articleIntent = new Intent(getActivity(), ArticleActivity.class);
-					TextView articleTitle = (TextView) view.findViewById(R.id.article_title);
-					articleIntent.putExtra("title", articleTitle.getText().toString());
-					startActivity(articleIntent);
-					break;
-				}
-				
-			}
-        	
-        	});
 	    }else{
 	    	
 	    	SQLHandler sql = new SQLHandler(getActivity());
@@ -95,7 +79,7 @@ public class ArticleFragment extends ListFragment{
 	        bundleArticleAdapter = new myBundleArticleAdapter(getActivity(), android.R.id.list, allArticles);
 	        listView.setAdapter(bundleArticleAdapter);
 	        bundleArticleAdapter.notifyDataSetChanged();
-	        
+	        listView.setOnItemClickListener(this);
 	    }
 	}
 	
@@ -241,6 +225,20 @@ public class ArticleFragment extends ListFragment{
 	        
 	    }
 		
+	}
+
+
+	@Override
+	public void onItemClick(AdapterView<?> adapterView, View view, int item, long longInt) {
+		// TODO Auto-generated method stub
+
+		Intent articleIntent = new Intent(getActivity(), ArticleActivity.class);
+		TextView articleTitle = (TextView) view.findViewById(R.id.article_title);
+		TextView articleContent = (TextView) view.findViewById(R.id.article_summary);
+		articleIntent.putExtra(ArticleActivity.ARTICLE_TITLE, articleTitle.getText().toString());
+		articleIntent.putExtra(ArticleActivity.ARTICLE_CONTENT, articleContent.getText().toString());
+		
+		startActivity(articleIntent);
 	}
 }
 

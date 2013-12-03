@@ -22,6 +22,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Used to display one article.
+ * @author deenliu
+ *
+ */
+
 public class ArticleContentFragment extends Fragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,13 +40,31 @@ public class ArticleContentFragment extends Fragment {
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
-	    ArticleTitle title = new ArticleTitle("Purdue helps bring SplashCon to Indianapolis; provides unique opportunity to Indiana computer science students", new ColorDrawable(Color.parseColor("#00A9FF")), "I am the author");
-	    ArticleContent content = new ArticleContent("https://www.cs.purdue.edu/images/slider/splash.jpg", ""
-	    		+"WEST LAFAYETTE, Ind. - Computer scientists from Purdue University led the organization of the 2013 Splash Conference, and helped bring the top software development conference to Indianapolis.\n\n"
-	    		+"\"This is the first time this important conference has been held in our area and is easily accessible to students in Indiana and the Midwest,\" said Hosking, an associate professor of computer science. “There are already more than 30 Purdue undergraduate students signed up to go for whom travel to past locations would have been prohibitively expensive. We really want to encourage students to take advantage of this opportunity to learn from giants in the field and to network with other students and industry representatives.\"\n\n"
-	    		+"Purdue students can attend the conference for free on Tuesday (Oct. 29) and the university is providing bus transportation from the West Lafayette campus to and from the conference for any students within the area. Students interested in riding the bus should contact Pat Morgan at pam@cs.purdue.edu.");
-	    Article article = new Article(title, content);
+	    ArticleTitle title;
+	    ArticleContent content;
+	    Article article;
 	    
+	    Bundle bundle = this.getArguments();
+	    
+	    if(bundle.containsKey(ArticleActivity.ARTICLE_TITLE)){
+	    	title = new ArticleTitle(bundle.getString(ArticleActivity.ARTICLE_TITLE),new ColorDrawable(Color.parseColor("#00A9FF")),"Author");
+	    	if( bundle.containsKey(ArticleActivity.PIC_URL) ){
+	    		content = new ArticleContent(bundle.getString(ArticleActivity.PIC_URL), bundle.getString(ArticleActivity.ARTICLE_CONTENT) );
+	    	}else{
+	    		content = new ArticleContent(null, bundle.getString(ArticleActivity.ARTICLE_CONTENT) );
+	    	}
+	    	article = new Article(title, content);
+	    }else{
+	    
+		    title = new ArticleTitle("Purdue helps bring SplashCon to Indianapolis; provides unique opportunity to Indiana computer science students", new ColorDrawable(Color.parseColor("#00A9FF")), "I am the author");
+		    content = new ArticleContent("https://www.cs.purdue.edu/images/slider/splash.jpg", ""
+		    		+"WEST LAFAYETTE, Ind. - Computer scientists from Purdue University led the organization of the 2013 Splash Conference, and helped bring the top software development conference to Indianapolis.\n\n"
+		    		+"\"This is the first time this important conference has been held in our area and is easily accessible to students in Indiana and the Midwest,\" said Hosking, an associate professor of computer science. “There are already more than 30 Purdue undergraduate students signed up to go for whom travel to past locations would have been prohibitively expensive. We really want to encourage students to take advantage of this opportunity to learn from giants in the field and to network with other students and industry representatives.\"\n\n"
+		    		+"Purdue students can attend the conference for free on Tuesday (Oct. 29) and the university is providing bus transportation from the West Lafayette campus to and from the conference for any students within the area. Students interested in riding the bus should contact Pat Morgan at pam@cs.purdue.edu.");
+
+	    }
+	    
+	    article = new Article(title, content);
 	    setView(this.getView(), article);
 	    
 	}
@@ -94,10 +118,12 @@ public class ArticleContentFragment extends Fragment {
 		avatarView.setImageDrawable(avatar);
 		contentView.setText(content);
 		
-		String[] urls = new String[1];
-		urls[0] = picUrl;
-		UpdatePicTask task = new UpdatePicTask();
-		task.execute(urls);
+		if(picUrl != null){
+			String[] urls = new String[1];
+			urls[0] = picUrl;
+			UpdatePicTask task = new UpdatePicTask();
+			task.execute(urls);
+		}
 	}
 	
 	public void clickHandler(View target) {
