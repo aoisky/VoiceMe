@@ -50,8 +50,8 @@ public class APIHandler {
 		
 		JSONObject obj = new JSONObject();
 		
-		obj.put("password", password);
-		obj.put("username", username);
+		obj.put("user_password", password);
+		obj.put("user_username", username);
 		
 		
 		String userAuthInfo = obj.toJSONString();
@@ -93,11 +93,20 @@ public class APIHandler {
 	        
 	        String auth = authInfo.get("auth").toString();
 	        
-	        if(auth.equals("No such user")){
+	        if(auth != null && auth.equals("No such user")){
 	        	Log.d(logTag, "Auth: No such user, try to register an account" );
 	        	loginConnect.disconnect();
 	        	return null;
 	        	
+	        }
+	        //If login succeed, fetch profile from server
+	        if( auth != null && auth.equals("Authentication succeeded")){
+	        	String returnedProfileStr = apiConnection("fetch_profile", userAuthInfo);
+	        	Object profileJSON = parser.parse(returnedProfileStr);
+		        JSONArray profileArray = (JSONArray)authJSON;
+		        JSONObject profileInfo = (JSONObject)authArray.get(0);
+		        
+		        
 	        }
 	        
 		} catch (IOException e) {
