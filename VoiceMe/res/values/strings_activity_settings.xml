@@ -10,9 +10,16 @@
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
     <string name="pref_description_social_recommendations">Recommendations for people to contact based on your message history</string>
     <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string name="pref_default_display_name">aoisky</string>
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
 
+    <string name="pref_header_account_settings">Account Settings</string>
+    <string name="pref_username">Username</string>
+    <string name="pref_password_edit">Change Password</string>
+    <string name="pref_about_us_str">About us</string>
+    <string name="pref_other">Others</string>
+    <string name="pref_check_update">Check updates</string>
+    
     <string-array name="pref_example_list_titles">
         <item>Always</item>
         <item>When possible</item>
