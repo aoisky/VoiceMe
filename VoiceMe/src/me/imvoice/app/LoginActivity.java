@@ -231,34 +231,38 @@ public class LoginActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, UserInfo> {
+	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
-		protected UserInfo doInBackground(Void... params) {
+		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
 			UserInfo userInfo = null;
 			try {
-				// Simulate network access.
 				//Use API to auth login
-				userInfo = APIHandler.authLogin(mEmail, mPassword);
+				//userInfo = APIHandler.authLogin(mEmail, mPassword);
 				
+				userInfo = APIHandler.readUserInfo(LoginActivity.this);
+								
 				Thread.sleep(2000);
+				if(userInfo.getEmail().equals(mEmail) && userInfo.getmd5Password().equals(mPassword)){
+					return true;
+				}
 				
 			} catch (InterruptedException e) {
-				return null;
+				return false;
 			}
 
 			
 
 			// TODO: register the new account here.
-			return userInfo;
+			return false;
 		}
 
 		@Override
-		protected void onPostExecute(final UserInfo success) {
+		protected void onPostExecute(final Boolean success) {
 			mAuthTask = null;
 			showProgress(false);
 
-			if (success == null) {
+			if (success == true ) {
 				Intent main = new Intent(getBaseContext(), MainActivity.class);
 				startActivity(main);
 				finish();
