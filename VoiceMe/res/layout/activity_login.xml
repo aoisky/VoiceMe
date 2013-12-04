@@ -57,7 +57,8 @@
                     android:layout_height="200dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/ic_voiceme" />
+                    android:src="@drawable/ic_voiceme" 
+                    android:contentDescription="VoiceMe Icon"/>
 
             </RelativeLayout>
 
@@ -92,38 +93,26 @@
 		
 
 		 <LinearLayout
-		     android:layout_width="match_parent"
-		     android:layout_height="wrap_content" >
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:layout_gravity="center" >
 
 		     <Button
 		         android:id="@+id/sign_in_button"
-		         android:layout_width="0dp"
+		         android:layout_width="0dip"
 		         android:layout_height="wrap_content"
 		         android:layout_marginTop="16dp"
 		         android:layout_weight="1.92"
 		         android:paddingLeft="32dp"
 		         android:paddingRight="32dp"
 		         android:background="@color/main_btn_clr"
+		         
 		         android:text="@string/action_sign_in_register" />
 
-		     <Button
-		         android:id="@+id/forget_pwd"
-		         android:layout_width="142dp"
-		         android:layout_height="wrap_content"
-		         android:layout_marginTop="16dp"
-		         android:paddingLeft="32dp"
-		         android:paddingRight="32dp"
-		         android:background="@color/main_btn_clr"
-		         android:text="Forget" />
 
 		 </LinearLayout>
 
-		 <LinearLayout
-		     android:layout_width="match_parent"
-		     android:layout_height="wrap_content"
-		     android:orientation="vertical" >
 
-		 </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
