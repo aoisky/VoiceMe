@@ -243,7 +243,7 @@ public class LoginActivity extends Activity {
 				userInfo = APIHandler.readUserInfo(LoginActivity.this);
 								
 				Thread.sleep(2000);
-				if(userInfo.getEmail().equals(mEmail) && userInfo.getmd5Password().equals(mPassword)){
+				if(userInfo != null && userInfo.getEmail().equals(mEmail) && userInfo.getmd5Password().equals(mPassword)){
 					return true;
 				}
 				
