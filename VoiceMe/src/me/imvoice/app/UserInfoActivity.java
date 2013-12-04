@@ -16,13 +16,12 @@ import android.widget.*;
 public class UserInfoActivity extends Activity {
 
 
-		// Assume using articleID to fetch comments of a specific article.
-		// UserInfo used to add comment.
-		// should be passed by ArticleActivity.
-		private int articleID;
 		private UserInfo userInfo;
 		private ImageView userIcon;
 		private TextView nickname;
+		private TextView age;
+		private TextView email;
+		private TextView gender;
 		
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,10 @@ public class UserInfoActivity extends Activity {
 			//Get two views by id
 			userIcon = (ImageView)findViewById(R.id.user_headicon);
 			nickname = (TextView) findViewById(R.id.user_nick);
+			age = (TextView) findViewById(R.id.profile_age);
+			email = (TextView) findViewById(R.id.profile_email);
+			gender = (TextView) findViewById(R.id.profile_gender);
+			
 			//Get action bar and setting attribute
 			ActionBar actionBar = getActionBar();
 			setActionBar(actionBar);
@@ -41,6 +44,15 @@ public class UserInfoActivity extends Activity {
 				//Set user avatar and username in the activity
 				userIcon.setImageBitmap(userInfo.getUserAvatar());
 				nickname.setText(userInfo.getUserName());
+				age.setText("Age: " + userInfo.getAge());
+				email.setText("Email: " + userInfo.getEmail());
+				if(userInfo.getGender() == false){
+					gender.setText("Male");
+					gender.setTextColor(Color.BLUE);
+				}else{
+					gender.setText("Female");
+					gender.setTextColor(Color.RED);
+				}
 			}
 		}
 

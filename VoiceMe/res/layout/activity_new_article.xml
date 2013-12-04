@@ -20,6 +20,7 @@
         android:id="@+id/editTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="Enter a title"
         android:ems="10" >
 
         <requestFocus />
@@ -38,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Write something you want to post"
         android:inputType="textMultiLine" />
     
 </LinearLayout>
