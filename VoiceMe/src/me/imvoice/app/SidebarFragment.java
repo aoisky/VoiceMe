@@ -69,14 +69,14 @@ public class SidebarFragment extends ListFragment {
 	    MenuItem newArticleMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_edit), "New Article");
 	    MenuItem userMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_person), "User");
 	    MenuItem myArticleMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_unread), "My Article");
-	    MenuItem favoriteMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_favorite), "Favorite");
+	    //MenuItem favoriteMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_favorite), "Favorite");
 	    MenuItem helpMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_help), "Help");
 	    MenuItem aboutMenu = new MenuItem(getResources().getDrawable(R.drawable.ic_action_about), "About");
 	    menuItems.add(newArticleMenu);
 	    //menuItems.add(homeMenu);
 	    menuItems.add(userMenu);
 	    menuItems.add(myArticleMenu);
-	    menuItems.add(favoriteMenu);
+	    //menuItems.add(favoriteMenu);
 	   
 	    menuItems.add(helpMenu);
 	    menuItems.add(aboutMenu);
@@ -97,28 +97,23 @@ public class SidebarFragment extends ListFragment {
 				
 					case 1: //User Info page
 						Intent userInfoIntent = new Intent(getActivity(), UserInfoActivity.class);
-						//Create a user info for testing
-						//Bitmap userIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-						//UserInfo userInfo = new UserInfo("Test User", 1, userIcon, 20, "test@purdue.edu", "Password", false );
-						//APIHandler.saveUserInfo(getActivity(), userInfo);
+
 						startActivity(userInfoIntent);
 					break;
 					
 					case 2:  //My Article page
+						Intent myArticleIntent = new Intent(getActivity(), MyArticleActivity.class);
+						startActivity(myArticleIntent);
+					break;
+					
+					case 3:  //Help page
 						
 					break;
 					
-					case 3:  //Favorite page
-						
-					break;
-					
-					case 4: //Help page
-						
-					break;
-					
-					case 5: //About page
+					case 4: //About dialog
 						showAbout();
 					break;
+					
 				}
 			}
         	

@@ -62,7 +62,7 @@ public class NotificationMgr{
 			
 			if(notifyType == NEW_ARTICLE_NOTIFICATION){
 				mBuilder = new NotificationCompat.Builder(context)
-				.setSmallIcon(R.drawable.ic_launcher)
+				.setSmallIcon(R.drawable.ic_defaulticon)
 				.setContentTitle(title)
 				.setContentText(content);
 				
@@ -81,7 +81,7 @@ public class NotificationMgr{
 			if(notifyType == NEW_VERSION_NOTIFICATION){
 				
 				mBuilder = new NotificationCompat.Builder(context)
-				.setSmallIcon(R.drawable.ic_launcher)
+				.setSmallIcon(R.drawable.ic_defaulticon)
 				.setContentTitle("VoiceMe New Version" + title)
 				.setContentText(content);
 				
@@ -100,7 +100,7 @@ public class NotificationMgr{
 			if(notifyType == NEW_MESSAGE_NOTIFICATION){
 				int messageNum = args.getInt("messageNum", 1);
 				mBuilder = new NotificationCompat.Builder(context)
-				.setSmallIcon(R.drawable.ic_launcher)
+				.setSmallIcon(R.drawable.ic_defaulticon)
 				.setContentTitle("VoiceMe" + title)
 				.setContentText("You have new messages.")
 				.setNumber(messageNum);

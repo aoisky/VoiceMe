@@ -48,15 +48,16 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center" >
 
                 <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imageViewLogo"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/voice" />
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/ic_voiceme" />
 
             </RelativeLayout>
 
@@ -102,6 +103,7 @@
 		         android:layout_weight="1.92"
 		         android:paddingLeft="32dp"
 		         android:paddingRight="32dp"
+		         android:background="@color/main_btn_clr"
 		         android:text="@string/action_sign_in_register" />
 
 		     <Button
@@ -111,6 +113,7 @@
 		         android:layout_marginTop="16dp"
 		         android:paddingLeft="32dp"
 		         android:paddingRight="32dp"
+		         android:background="@color/main_btn_clr"
 		         android:text="Forget" />
 
 		 </LinearLayout>

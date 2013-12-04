@@ -18,6 +18,9 @@
     <string name="menu_login">Login</string>
     <string name="menu_signup">Sign Up</string>
     <string name="title_activity_article">ArticleActivity</string>
+    <string name="title_myarticle_share">Share</string>
+    <string name="title_myarticle">My Article</string>
+    <string name="title_myarticle_like">Like</string>
     <string name="title_section1">Headlines</string>
     <string name="title_section2">Friends</string>
     <string name="title_section3">Recommends</string>
@@ -28,5 +31,6 @@
     <string name="signup_detail_info">Detail Inforamtion</string>
     <string name="title_activity_new_article">Post New Article</string>
     <string name="send_article_button">POST</string>
+    <string name="title_activity_my_article">MyArticleActivity</string>
 
 </resources>

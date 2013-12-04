@@ -121,6 +121,12 @@ public class SQLHandler extends SQLiteOpenHelper{
 		return bundle;
 	}
 	
+	public void addLikeArticles(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		
+	}
+	
 	public List<Bundle> getAllArticlesByUserId(long rowid){
 		List<Bundle> articleList = new ArrayList<Bundle>();
 		SQLiteDatabase db = this.getReadableDatabase();

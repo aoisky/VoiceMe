@@ -49,6 +49,7 @@ public class ArticleFragment extends ListFragment implements OnItemClickListener
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
+	    
 	    if(getArguments() != null){
 	    	showHeadlines = getArguments().getBoolean("isHeadline", true);
 	    }

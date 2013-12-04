@@ -83,7 +83,6 @@ public class MainActivity extends Activity{
 	        	startActivity(settings);
 	            return true;
 	            
-
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
