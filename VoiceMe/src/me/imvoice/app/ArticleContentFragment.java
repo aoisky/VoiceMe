@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Used to display one article.
@@ -29,6 +30,10 @@ import android.widget.TextView;
  */
 
 public class ArticleContentFragment extends Fragment {
+	
+    ArticleTitle title;
+    ArticleContent content;
+    Article article;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -40,9 +45,6 @@ public class ArticleContentFragment extends Fragment {
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
-	    ArticleTitle title;
-	    ArticleContent content;
-	    Article article;
 	    
 	    Bundle bundle = this.getArguments();
 	    
@@ -130,14 +132,16 @@ public class ArticleContentFragment extends Fragment {
 		switch(target.getId()) {
 		
 			case R.id.like_btn:
+				Toast.makeText(getActivity(), "Like it", Toast.LENGTH_SHORT).show();
 	        	break;
 	        	
 			case R.id.comment_btn:
-				Intent comment = new Intent(getActivity(), CommentActivity.class);
-				getActivity().startActivity(comment);
+				Intent comment = new Intent(this.getActivity(), CommentActivity.class);
+				startActivity(comment);
 				break;
 				
 			case R.id.share_btn:
+				Toast.makeText(getActivity(), "Share it", Toast.LENGTH_SHORT).show();
 				break;
 	        	
 			default:

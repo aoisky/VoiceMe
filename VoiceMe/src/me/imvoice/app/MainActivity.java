@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 
 import me.imvoice.app.ArticleFragment.myBundleArticleAdapter;
+import me.imvoice.app.MyArticleActivity.DummySectionFragment;
 
 
 import android.os.Bundle;
@@ -24,10 +25,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity{
@@ -39,6 +44,8 @@ public class MainActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		
 		setContentView(R.layout.main_pageadapter);
 		
 		//Get action bar and setting attribute
@@ -106,16 +113,23 @@ public class MainActivity extends Activity{
 					if(resultCode == RESULT_OK){
 					Log.d("MainActivity", "OnResult");
 		    		  ViewPager viewPager = (ViewPager) findViewById(R.id.mainpager);
-		    		  Fragment friendFragment = (Fragment)viewPager.getAdapter().instantiateItem(viewPager, 1);
+		    		  ArticleFragment friendFragment = (ArticleFragment)viewPager.getAdapter().instantiateItem(viewPager, 1);
 		    		  ListView listView = (ListView) friendFragment.getView().findViewById(android.R.id.list);
 		  	    	SQLHandler sql = new SQLHandler(this);
 			    	List<Bundle> allArticles = sql.getAllArticlesByUserId(1);
 			    	
 			    	sql.close();
-			    	ArticleFragment.myBundleArticleAdapter adapter = (ArticleFragment.myBundleArticleAdapter)listView.getAdapter();
-			    	adapter.clear();
-			    	adapter.addAll(allArticles);
-			    	adapter.notifyDataSetChanged();
+			    	if(listView.getAdapter() instanceof ArticleFragment.myBundleArticleAdapter){
+			    		ArticleFragment.myBundleArticleAdapter adapter = (ArticleFragment.myBundleArticleAdapter)listView.getAdapter();
+				    	adapter.clear();
+				    	adapter.addAll(allArticles);
+				    	adapter.notifyDataSetChanged();
+				    	
+			    	}else{
+			    		ArticleFragment.myBundleArticleAdapter bundleArticleAdapter = friendFragment.new myBundleArticleAdapter(this, android.R.id.list, allArticles);
+				        listView.setAdapter(bundleArticleAdapter);
+				        bundleArticleAdapter.notifyDataSetChanged();
+			    	}
 					}
 				}
 
@@ -159,12 +173,12 @@ public class MainActivity extends Activity{
 					return headlineFragment;
 				
 				case 1:
-					ArticleFragment friendFragment = new ArticleFragment();
-					Bundle friendbundle = new Bundle();
-					friendbundle.putBoolean("isHeadline", false);
-					friendFragment.setArguments(friendbundle);
-					return friendFragment;
-					
+						ArticleFragment friendFragment = new ArticleFragment();
+						Bundle friendbundle = new Bundle();
+						friendbundle.putBoolean("isHeadline", false);
+						friendFragment.setArguments(friendbundle);
+						return friendFragment;
+
 				case 2:
 					return new ArticleFragment();
 				
@@ -216,6 +230,29 @@ public class MainActivity extends Activity{
 		
 		sidebarFlag = true;
 		
+	}
+	
+	//Add a dummy fragment to show something when no article
+	public static class DummySectionFragment extends Fragment {
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		public static final String ARG_SECTION_NUMBER = "section_number";
+
+		public DummySectionFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(
+					R.layout.fragment_my_article_dummy, container, false);
+			TextView dummyTextView = (TextView) rootView
+					.findViewById(R.id.section_label);
+			dummyTextView.setText(getArguments().getString("pageName"));
+			return rootView;
+		}
 	}
 }
 

@@ -60,7 +60,7 @@ public class ArticleFragment extends ListFragment implements OnItemClickListener
 		    ArticleItem article2 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Elizabeth K. Gardner", "Computer Science professors from Purdue lead the organization of the 2013 Splash Conference in Indianapolis","10-23-2013","This year's conference, which focuses on solving problems faced by the software industry, includes ways to improve tools the average person uses daily like smartphones");
 		    ArticleItem article3 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger","IEEE Computer Society Board Names Elisa Bertino Editor-in-Chief of Top International Journal","10-16-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
 		    ArticleItem article4 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad","Hosking Receives Research Awards from Qualcomm, Inc.","10-15-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
-		    ArticleItem article5 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Buster Dunsmore","CS Student Project Receives Entrepreneurship Prototyping Grant","10-13-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
+		    ArticleItem article5 = new ArticleItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad","CS Student Project Receives Entrepreneurship Prototyping Grant","10-13-2013", "Elisa Bertino, a professor of computer science at Purdue University and acting research director for the Center for Education and Research in Information Assurance and Security, was named editor-in-chief of IEEE Transactions on Secure and Dependable ");
 		    articleItems.add(article1);
 		    articleItems.add(article2);
 		    articleItems.add(article3);
@@ -75,12 +75,19 @@ public class ArticleFragment extends ListFragment implements OnItemClickListener
 	    }else{
 	    	
 	    	SQLHandler sql = new SQLHandler(getActivity());
-	    	List<Bundle> allArticles = sql.getAllArticlesByUserId(1);
-	    	sql.close();
-	        bundleArticleAdapter = new myBundleArticleAdapter(getActivity(), android.R.id.list, allArticles);
-	        listView.setAdapter(bundleArticleAdapter);
-	        bundleArticleAdapter.notifyDataSetChanged();
-	        listView.setOnItemClickListener(this);
+	    	if(sql.getAllArticlesCount() > 0){
+		    	List<Bundle> allArticles = sql.getAllArticlesByUserId(1);
+		    	sql.close();
+		        bundleArticleAdapter = new myBundleArticleAdapter(getActivity(), android.R.id.list, allArticles);
+		        listView.setAdapter(bundleArticleAdapter);
+		        bundleArticleAdapter.notifyDataSetChanged();
+		        listView.setOnItemClickListener(this);
+	    	}else{
+			    ArticleItem welcomeMessage = new ArticleItem(getResources().getDrawable(R.drawable.ic_defaulticon),"VoiceMe development team","Welcome","-", "Welcome to use VoiceMe social app, you did not post any article now, try to post it first");
+			    articleItems.add(welcomeMessage);
+		        articleAdapter = new myArticleAdapter(getActivity(), android.R.id.list, articleItems);
+		        listView.setAdapter(articleAdapter);
+	    	}
 	    }
 	}
 	
