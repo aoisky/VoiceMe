@@ -332,6 +332,31 @@ public class APIHandler {
 		
 		return 0;
 	}
+
+	/**
+	 * Edit userName
+	 * @param context
+	 * @param userName
+	 */
+	public static void editUserName(Context context, String userName){
+		SharedPreferences userInfoPref = context.getSharedPreferences(userInfoStr, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = userInfoPref.edit();
+		editor.putString("UserName", userName);
+		editor.apply();
+	}
+	
+	/**
+	 * Change password
+	 * @param context
+	 * @param password
+	 */
+	public static void changePassword(Context context, String password){
+		SharedPreferences userInfoPref = context.getSharedPreferences(userInfoStr, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = userInfoPref.edit();
+		editor.putString("Password", password);
+		editor.apply();
+	}
+	
 	/**
 	 * Save userInfo into preferences
 	 * @param context

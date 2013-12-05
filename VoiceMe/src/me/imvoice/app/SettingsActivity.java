@@ -112,6 +112,9 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		getPreferenceScreen().addPreference(fakeHeader);
 		addPreferencesFromResource(R.xml.pref_data_sync);
 
+		
+		bindPreferenceSummaryToValue(findPreference("voiceme_username"));
+		bindPreferenceSummaryToValue(findPreference("voiceme_password"));
 		// Bind the summaries of EditText/List/Dialog/Ringtone preferences to
 		// their values. When their values change, their summaries are updated
 		// to reflect the new value, per the Android Design guidelines.
@@ -208,6 +211,14 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 				// For all other preferences, set the summary to the value's
 				// simple string representation.
 				preference.setSummary(stringValue);
+				
+				if(preference.getKey().equals("voiceme_username")){
+					APIHandler.editUserName(preference.getContext(), stringValue);
+				}
+				
+				if(preference.getKey().equals("voiceme_password")){
+					APIHandler.changePassword(preference.getContext(), stringValue);
+				}
 			}
 			return true;
 		}
@@ -325,7 +336,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 				protected void onPostExecute(String version){
 					if(version.equals("1")){
 						AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-						  builder.setMessage("Your version is up to date")
+						  builder.setMessage("Your version is up to date\n\nCurrent version: " + version)
 						  .setTitle("Check Version")
 						  .setCancelable(false)
 						  .setPositiveButton("OK", new DialogInterface.OnClickListener() {

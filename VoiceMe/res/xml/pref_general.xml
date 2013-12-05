@@ -10,7 +10,7 @@
         android:capitalize="words"
         android:defaultValue="@string/pref_default_display_name"
         android:inputType="textCapWords"
-        android:key="androidmatic_username"
+        android:key="voiceme_username"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -20,7 +20,7 @@
         <EditTextPreference
         android:capitalize="words"
         android:inputType="textCapWords"
-        android:key="androidmatic_password"
+        android:key="voiceme_password"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"
