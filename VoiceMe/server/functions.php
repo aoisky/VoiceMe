@@ -219,6 +219,18 @@
         
         echo json_encode($results);
     }
+    /*
+        Incoming arguments: 
+        Return value(key:variable):     version:$version
+    */
+    else if ($_SERVER['HTTP_METHOD'] === 'fetch_version'){
+    
+        $version = "1";
+    		  
+        $results[] = array('version'=>$version);
+        
+        echo json_encode($results);
+    }
     else {
         $data['error'] = 'The Service you asked for was not recognized';
         echo json_encode($data);
