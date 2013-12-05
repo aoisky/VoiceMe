@@ -1,5 +1,7 @@
 package me.imvoice.app;
 
+import java.io.File;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 
 /**
@@ -38,6 +41,10 @@ public class SQLHandler extends SQLiteOpenHelper{
 	public static final String ARTICLE_ID = "articleid";
 	public static final String ARTICLE_TITLE = "articletitle";
 	public static final String ARTICLE_CONTENT = "articlecontent";
+	public static final String ARTICLE_TYPE = "articletype";
+	public static final int ARTICLE_TYPE_ORIGINAL = 0;
+	public static final int ARTICLE_TYPE_LIKE = 1;
+	public static final int ARTICLE_TYPE_SHARE = 2;
 	public static final String ARTICLE_TIMESTAMP = "article_timestamp";
 	
 	private static final String USER_SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + USER_TABLE_NAME;
@@ -49,6 +56,7 @@ public class SQLHandler extends SQLiteOpenHelper{
 			+ ARTICLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 			+ ARTICLE_TITLE + TEXT_TYPE + ","
 			+ ARTICLE_CONTENT + TEXT_TYPE + ","
+			+ ARTICLE_TYPE + INTEGER_TYPE + ","
 			+ ARTICLE_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
 			+ " )";
 	
@@ -84,6 +92,87 @@ public class SQLHandler extends SQLiteOpenHelper{
         
         onCreate(db);
 	}
+	
+	
+	public long addUser(UserInfo userInfo){
+		if(userInfo == null) 
+			return -1;
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(USER_NAME, userInfo.getUserName());
+		values.put(USER_EMAIL, userInfo.getEmail());
+		values.put(USER_AGE, userInfo.getAge());
+		values.put(USER_PASSWORD, userInfo.getmd5Password());
+		
+		if(userInfo.getGender() == true){
+			values.put(USER_GENDER, 1);
+		} else{
+			values.put(USER_GENDER, 0);
+		}
+		
+	    String dirName = Environment.getExternalStorageDirectory().toString();
+		
+	    OutputStream os = null;
+		
+		long rowid = db.insert(USER_TABLE_NAME, null, values);
+		Log.d(LOG_TAG, "A user has been added to the database: " + userInfo.getUserName());
+
+		return rowid;
+	}
+	
+    public int getAllArticlesCount() {
+        String countQuery = "SELECT * FROM " + ARTICLE_TABLE_NAME + " WHERE " + ARTICLE_TYPE + " != " + ARTICLE_TYPE_LIKE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        Log.d(LOG_TAG, "Get articles count: " + count);
+
+        return count;
+    }
+	
+    public int getUsersCount() {
+        String countQuery = "SELECT * FROM " + USER_TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        Log.d(LOG_TAG, "Get users count: " + count);
+
+        return count;
+    }
+    
+    public int getAllLikedArticlesCountByUserId(long userId){
+        String countQuery = "SELECT * FROM " + ARTICLE_TABLE_NAME + " WHERE " + ARTICLE_TYPE + " == " + ARTICLE_TYPE_LIKE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        Log.d(LOG_TAG, "Get all liked count: " + count);
+
+        return count;
+    }
+    
+    public List<Bundle> getAllLikedArticlesByUserId(long userId){
+		List<Bundle> articleList = new ArrayList<Bundle>();
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(ARTICLE_TABLE_NAME, new String[] { USER_ID, ARTICLE_ID, ARTICLE_TITLE, ARTICLE_CONTENT, ARTICLE_TIMESTAMP}, USER_ID + " = ?" + " AND " + ARTICLE_TYPE + " == " + ARTICLE_TYPE_LIKE, new String[]{String.valueOf(userId)}, null, null, null);
+		
+	       if (cursor.moveToFirst()) {
+	            do {
+	            	Bundle bundle = new Bundle();
+	            	
+	        		bundle.putLong(USER_ID, cursor.getLong(0));
+	        		bundle.putLong(ARTICLE_ID, cursor.getLong(1));
+	        		bundle.putString(ARTICLE_TITLE, cursor.getString(2));
+	        		bundle.putString(ARTICLE_CONTENT, cursor.getString(3));
+	        		bundle.putString(ARTICLE_TIMESTAMP, cursor.getString(4));	
+
+	        		articleList.add(bundle);
+	            } while (cursor.moveToNext());
+	        }
+	       
+	       return articleList;
+    }
+    
 
 	public long addArticle(Bundle bundle){
 		if(bundle == null) 
@@ -94,6 +183,7 @@ public class SQLHandler extends SQLiteOpenHelper{
 		values.put(USER_ID, bundle.getLong(USER_ID));
 		values.put(ARTICLE_TITLE, bundle.getString(ARTICLE_TITLE));
 		values.put(ARTICLE_CONTENT, bundle.getString(ARTICLE_CONTENT));
+		values.put(ARTICLE_TYPE, bundle.getInt(ARTICLE_TYPE));
 
 		long rowid = db.insert(ARTICLE_TABLE_NAME, null, values);
 		Log.d(LOG_TAG, "An article added to the database: " + bundle.getString(ARTICLE_TITLE));
@@ -121,16 +211,13 @@ public class SQLHandler extends SQLiteOpenHelper{
 		return bundle;
 	}
 	
-	public void addLikeArticles(){
-		SQLiteDatabase db = this.getWritableDatabase();
-		
-		
-	}
+	
+
 	
 	public List<Bundle> getAllArticlesByUserId(long rowid){
 		List<Bundle> articleList = new ArrayList<Bundle>();
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(ARTICLE_TABLE_NAME, new String[] { USER_ID, ARTICLE_ID, ARTICLE_TITLE, ARTICLE_CONTENT, ARTICLE_TIMESTAMP}, USER_ID + " = ?", new String[]{String.valueOf(rowid)}, null, null, null);
+		Cursor cursor = db.query(ARTICLE_TABLE_NAME, new String[] { USER_ID, ARTICLE_ID, ARTICLE_TITLE, ARTICLE_CONTENT, ARTICLE_TIMESTAMP}, USER_ID + " = ?" + " AND " + ARTICLE_TYPE + " != " + ARTICLE_TYPE_LIKE, new String[]{String.valueOf(rowid)}, null, null, null);
 		
 	       if (cursor.moveToFirst()) {
 	            do {
