@@ -1,24 +1,41 @@
 package me.imvoice.app;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -31,7 +48,7 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener{
 	/**
 	 * Determines whether to always show the simplified settings UI, where
 	 * settings are presented in a single list. When false, settings are shown
@@ -39,6 +56,7 @@ public class SettingsActivity extends PreferenceActivity {
 	 * shown on tablets.
 	 */
 	private static final boolean ALWAYS_SIMPLE_PREFS = false;
+	private Preference checkVersionPref;
 
 	
 	@Override
@@ -101,6 +119,10 @@ public class SettingsActivity extends PreferenceActivity {
 		//bindPreferenceSummaryToValue(findPreference("example_list"));
 		bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
 		bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+		
+		//Check update preference
+		checkVersionPref = findPreference("pref_check_update");
+		checkVersionPref.setOnPreferenceClickListener(this);
 	}
 
 	/** {@inheritDoc} */
@@ -271,5 +293,64 @@ public class SettingsActivity extends PreferenceActivity {
 			// guidelines.
 			bindPreferenceSummaryToValue(findPreference("sync_frequency"));
 		}
+	}
+
+	@Override
+	public boolean onPreferenceClick(Preference pref) {
+
+		if(pref == checkVersionPref){
+			if(!APIHandler.isNetworkAvaliable(this)){
+				AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+				  builder.setMessage("No network avaliable")
+				  .setTitle("Check Version")
+				  .setCancelable(false)
+				  .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	                public void onClick(DialogInterface dialog, int id) { }
+	            });
+
+				  AlertDialog alert = builder.create();
+				  alert.show();
+				  return false;
+			}
+				
+			
+			Toast.makeText(SettingsActivity.this, "Checking...", Toast.LENGTH_SHORT).show();
+			new AsyncTask<Context, Integer, String>(){
+				@Override
+				protected String doInBackground(Context... params) {
+					return APIHandler.checkVersion();
+				}
+				
+				@Override
+				protected void onPostExecute(String version){
+					if(version.equals("1")){
+						AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+						  builder.setMessage("Your version is up to date")
+						  .setTitle("Check Version")
+						  .setCancelable(false)
+						  .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			                public void onClick(DialogInterface dialog, int id) { }
+			            });
+
+						  AlertDialog alert = builder.create();
+						  alert.show();
+						  
+					}else{
+						AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+						  builder.setMessage("New version avaliable")
+						  .setTitle("Check Version")
+						  .setCancelable(false)
+						  .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			                public void onClick(DialogInterface dialog, int id) { }
+			            });
+
+						  AlertDialog alert = builder.create();
+						  alert.show();
+					}
+				}
+				
+			}.execute(new Context[]{this});
+		}
+		return false;
 	}
 }

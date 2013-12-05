@@ -24,6 +24,7 @@ import android.util.Log;
 
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Handle network connection and API transfer
@@ -33,7 +34,7 @@ import org.json.simple.parser.JSONParser;
 public class APIHandler {
 	private static final String userInfoStr = "UserInfoPref";
 	private static final String logTag = "APIHandler";
-	private static final String authURL = "http://puuca.org/app_conn/auth.php";
+	private static final String authURL = "http://imvoice.me/app_v2/functions.php";
 
 	
 	private APIHandler(){
@@ -105,7 +106,6 @@ public class APIHandler {
 	        	Object profileJSON = parser.parse(returnedProfileStr);
 		        JSONArray profileArray = (JSONArray)authJSON;
 		        JSONObject profileInfo = (JSONObject)authArray.get(0);
-		        
 		        
 	        }
 	        
@@ -186,6 +186,27 @@ public class APIHandler {
 	}
 	
 	
+	public static String checkVersion(){
+
+		String returnInfo = apiConnection("fetch_version", null);
+
+        JSONParser parser=new JSONParser();
+        
+        try {
+			Object authJSON = parser.parse(returnInfo);
+	        JSONArray authArray = (JSONArray)authJSON;
+	        JSONObject versionInfo = (JSONObject)authArray.get(0);
+	        return versionInfo.get("version").toString();
+	        
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
+        
+		return null;
+	}
 	
 	/**
 	 * Utility function
@@ -223,7 +244,8 @@ public class APIHandler {
 	        
 	        OutputStream sendData = registerConnect.getOutputStream();
 	        BufferedWriter dataWriter = new BufferedWriter(new OutputStreamWriter(sendData));
-	        dataWriter.write(JSONInfo);
+	        if(JSONInfo != null)
+	        	dataWriter.write(JSONInfo);
 	        dataWriter.close();
 	        
 	        registerConnect.connect();
