@@ -44,16 +44,16 @@ public class CommentFragment extends ListFragment{
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
 	    
-	    CommentItem comment1 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger", "10-25-2013","Nice.");
-	    CommentItem comment2 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Elizabeth K. Gardner", "10-13-2013", "I don't like it.");
-	    CommentItem comment3 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesica E. Hollinger", "10-16-2013", "LOL");
-	    CommentItem comment4 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad", "10-15-2013", "Great!");
-	    CommentItem comment5 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Buster Dunsmore", "10-13-2013", "This is really cool!");
-	    CommentItem comment6 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad", "10-15-2013", "Great!");
-	    CommentItem comment7 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad", "10-15-2013", "Great!");
-	    CommentItem comment8 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad", "10-15-2013", "Great!");
-	    CommentItem comment9 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad", "10-15-2013", "Great!");
-	    CommentItem comment10 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Fadi Meawad", "10-15-2013", "Great!");
+	    CommentItem comment1 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Deen", "10-25-2013","Nice.");
+	    CommentItem comment2 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Chenlin", "10-13-2013", "I like it.");
+	    CommentItem comment3 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")), "Jesse", "10-16-2013", "LOL");
+	    CommentItem comment4 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Jenny", "10-15-2013", "Great!");
+	    CommentItem comment5 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"John", "10-13-2013", "This is really cool!");
+	    CommentItem comment6 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Andy", "10-15-2013", "Great!");
+	    CommentItem comment7 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Mark Zuckerberg", "10-15-2013", "Great!");
+	    CommentItem comment8 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Bill Gates", "10-15-2013", "Hey Zuckerberg.");
+	    CommentItem comment9 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Tim Cook", "10-15-2013", "Great!");
+	    CommentItem comment10 = new CommentItem(new ColorDrawable(Color.parseColor("#00A9FF")),"Steve Ballmer", "10-15-2013", "Great!");
 	    commentItems.add(comment1);
 	    commentItems.add(comment2);
 	    commentItems.add(comment3);
