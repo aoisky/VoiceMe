@@ -45,7 +45,7 @@ public class CommentActivity extends Activity {
 			case R.id.comment_button:
 	        	EditText et = (EditText)findViewById(R.id.comment_content);
 	        	String comment = et.getText().toString();
-	        	Toast.makeText(this, comment, Toast.LENGTH_LONG).show();
+	        	// Toast.makeText(this, comment, Toast.LENGTH_LONG).show();
 	        	break;
 	        	
 			default:
@@ -64,6 +64,10 @@ public class CommentActivity extends Activity {
 	        	startActivity(settings);
 	            return true;
 
+	        case android.R.id.home:
+	        	this.finish();
+	        	return true;
+	            
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }

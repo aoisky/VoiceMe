@@ -109,6 +109,10 @@ public class ArticleActivity extends Activity {
 	        	Intent settings = new Intent(this,SettingsActivity.class);
 	        	startActivity(settings);
 	            return true;
+	            
+	        case android.R.id.home:
+	        	this.finish();
+	        	return true;
 
 	        default:
 	            return super.onOptionsItemSelected(item);
