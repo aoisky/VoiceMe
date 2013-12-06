@@ -153,6 +153,7 @@ public class MainActivity extends Activity{
 			    		ArticleFragment.myBundleArticleAdapter bundleArticleAdapter = friendFragment.new myBundleArticleAdapter(this, android.R.id.list, allArticles);
 				        listView.setAdapter(bundleArticleAdapter);
 				        bundleArticleAdapter.notifyDataSetChanged();
+				        listView.setOnItemClickListener(friendFragment);
 			    	}
 					}
 				}
