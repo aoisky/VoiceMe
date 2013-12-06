@@ -102,6 +102,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.imvoice.app.MainActivity" />
         </activity>
+        <activity
+            android:name="me.imvoice.app.HelpActivity"
+            android:label="@string/title_activity_help"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
     </application>
 
 </manifest>

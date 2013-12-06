@@ -91,13 +91,12 @@ public class SidebarFragment extends ListFragment {
 
 				switch(itemInt){
 					case 0: //New article page
-					Intent newArticleIntent = new Intent(getActivity(), NewArticleActivity.class);
-					getActivity().startActivityForResult(newArticleIntent, POST_ARTICLE);
+						Intent newArticleIntent = new Intent(getActivity(), NewArticleActivity.class);
+						getActivity().startActivityForResult(newArticleIntent, POST_ARTICLE);
 					break;
 				
 					case 1: //User Info page
 						Intent userInfoIntent = new Intent(getActivity(), UserInfoActivity.class);
-
 						startActivity(userInfoIntent);
 					break;
 					
@@ -107,7 +106,9 @@ public class SidebarFragment extends ListFragment {
 					break;
 					
 					case 3:  //Help page
-						
+						Intent mainActivityWithHelp = new Intent(getActivity(), MainActivity.class);
+						mainActivityWithHelp.putExtra("HELP", true);
+						startActivity(mainActivityWithHelp);
 					break;
 					
 					case 4: //About dialog

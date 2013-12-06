@@ -20,6 +20,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -41,11 +42,15 @@ public class MainActivity extends Activity{
 	private SectionsPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mainViewPager;
 	
+	// to identify first time user.
+	public static final String PREFS_NAME = "MyPrefsFile";  
+    public static final String FIRST_RUN = "first";  
+	private boolean first; 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		
 		setContentView(R.layout.main_pageadapter);
 		
 		//Get action bar and setting attribute
@@ -61,6 +66,25 @@ public class MainActivity extends Activity{
 		//Usage of notificationMgr
 		NotificationMgr notifyMgr = new NotificationMgr(this);
 		notifyMsg(notifyMgr);
+		
+		// first time user
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);  
+        first = settings.getBoolean(FIRST_RUN, true);
+        
+        // help enabled
+        Bundle extras = getIntent().getExtras();
+        boolean help = false;
+        if (extras != null){
+        		help = extras.getBoolean("HELP");
+        }
+        
+        if (first || help) {  
+        	// The Application is first run
+        	Intent helpActivity = new Intent(this, HelpActivity.class);
+    		this.startActivity(helpActivity);
+        } else {  
+        	// The Application is not first run 
+        }
 
 	}
 
@@ -254,6 +278,21 @@ public class MainActivity extends Activity{
 			return rootView;
 		}
 	}
+	
+	@Override  
+    protected void onStop() {  
+            super.onStop();  
+
+            // We need an Editor object to make preference changes.  
+            // All objects are from android.context.Context  
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);  
+            SharedPreferences.Editor editor = settings.edit();  
+            if (first) {  
+                    editor.putBoolean(FIRST_RUN, false);  
+            }  
+            // Commit the edits!  
+            editor.commit();  
+    }
 }
 
 

@@ -32,5 +32,6 @@
     <string name="title_activity_new_article">Post New Article</string>
     <string name="send_article_button">POST</string>
     <string name="title_activity_my_article">MyArticleActivity</string>
+    <string name="title_activity_help">HelpActivity</string>
 
 </resources>
